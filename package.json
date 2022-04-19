@@ -1,0 +1,12 @@
+{
+  "name": "userscripts",
+  "version": "0.0.1",
+  "description": "My common userscripts.",
+  "author": "asadahimeka",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/tampermonkey": "^4.0.5",
+    "eslint": "^8.13.0",
+    "eslint-plugin-unicorn": "^42.0.0"
+  }
+}

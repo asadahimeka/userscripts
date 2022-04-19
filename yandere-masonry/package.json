@@ -1,0 +1,58 @@
+{
+  "name": "yandere-masonry",
+  "version": "0.0.1",
+  "description": "Fork form yande-re-chinese-patch",
+  "author": "",
+  "license": "MIT",
+  "main": "dist/yandere-masonry.user.js",
+  "gorilla": {
+    "name": "Yande.re 简体中文",
+    "namespace": "com.coderzhaoziwei.yandere",
+    "version": "0.0.1",
+    "author": "Coder Zhao coderzhaoziwei@outlook.com",
+    "description": "中文标签 | 界面优化 | 高清大图 | 键盘翻页 | 流体布局",
+    "homepage": "https://greasyfork.org/scripts/421970",
+    "license": "MIT",
+    "match": [
+      "https://yande.re/post*",
+      "https://konachan.com/post*",
+      "https://konachan.net/post*"
+    ],
+    "supportURL": "https://github.com/coderzhaoziwei/yande-re-chinese-patch/issues",
+    "grant": [
+      "GM_addStyle",
+      "GM_download"
+    ]
+  },
+  "scripts": {
+    "build": "gorilla -i index.ts -o dist/yandere-masonry.user.js",
+    "prebuild": "rimraf dist"
+  },
+  "eslintConfig": {
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+      "parser": "@typescript-eslint/parser",
+      "ecmaVersion": 2021,
+      "sourceType": "module"
+    },
+    "plugins": [
+      "@typescript-eslint"
+    ],
+    "extends": [
+      "eslint:recommended",
+      "plugin:@typescript-eslint/recommended"
+    ],
+    "rules": {
+      "semi": [
+        "error",
+        "never"
+      ]
+    }
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.20.0",
+    "@typescript-eslint/parser": "^5.20.0",
+    "gorilla-build": "^0.1.15",
+    "rimraf": "^3.0.2"
+  }
+}
