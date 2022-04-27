@@ -67,14 +67,13 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
 import store from '@/common/store'
-import Post from '@/common/Post'
 
 const showImageInfo = ref(false)
 const innerWidth = ref(window.innerWidth)
 const innerHeight = ref(window.innerHeight)
 
 const showImageSelected = computed(() => store.showImageSelected)
-const imageSelected = computed<Post>(() => store.imageList[store.imageSelectedIndex] || new Post({}))
+const imageSelected = computed<any>(() => store.imageList[store.imageSelectedIndex] || {})
 const detailLinkText = computed(() => '本站链接 https://konachan.net/post/show/' + imageSelected.value.id)
 
 const imageSelectedWidth = computed(() => {

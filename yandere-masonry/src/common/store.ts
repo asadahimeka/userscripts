@@ -1,5 +1,4 @@
 import { reactive } from 'vue'
-import type Post from './Post'
 
 interface AppState {
   theme: string
@@ -9,7 +8,7 @@ interface AppState {
   imageSelectedIndex: number
   showDrawer: boolean
   showFab: boolean
-  imageList: Post[],
+  imageList: any[],
   toggleDrawer: () => void
 }
 

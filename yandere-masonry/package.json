@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@mdi/font": "5.9.55",
+    "booru": "github:asadahimeka/booru",
     "roboto-fontface": "*",
     "vue": "^3.2.33",
     "vue-next-masonry": "^1.1.3",
