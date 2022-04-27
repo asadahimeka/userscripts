@@ -2,6 +2,7 @@ a.thumb {
   background: #232322;
   border: 2px solid;
   border-color: #232322;
+
   &:visited {
     border-color: #ffaaae;
   }
@@ -38,4 +39,14 @@ li.tag-type-character a[href^="/post"]:not(.no-browser-link)::before {
 
 .javascript-hide {
   display: block !important;
+}
+
+.konachan {
+  div.content {
+    width: 80% !important;
+  }
+
+  a.thumb:visited {
+    background-color: #ffaaae;
+  }
 }

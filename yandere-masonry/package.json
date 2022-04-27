@@ -8,29 +8,33 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "lint": "eslint src --ext .ts,.vue",
     "preview": "vite preview"
   },
   "dependencies": {
     "@mdi/font": "5.9.55",
     "roboto-fontface": "*",
     "vue": "^3.2.33",
+    "vue-next-masonry": "^1.1.3",
     "vuetify": "^3.0.0-beta.0",
     "webfontloader": "^1.0.0"
   },
   "devDependencies": {
-    "@types/node": "^17.0.27",
+    "@types/node": "^17.0.29",
     "@types/tampermonkey": "^4.0.5",
     "@types/webfontloader": "^1.6.34",
     "@typescript-eslint/eslint-plugin": "^5.21.0",
     "@typescript-eslint/parser": "^5.21.0",
     "@vitejs/plugin-vue": "^2.3.1",
+    "@vue/eslint-config-typescript": "^10.0.0",
     "@vuetify/vite-plugin": "^1.0.0-alpha.0",
     "eslint": "^8.13.0",
     "eslint-plugin-unicorn": "^42.0.0",
+    "eslint-plugin-vue": "^8.7.1",
     "sass": "^1.38.0",
     "typescript": "^4.6.3",
     "vite": "^2.9.5",
-    "vite-plugin-tm-userscript": "https://ghproxy.fsofso.com/https://github.com/asadahimeka/vite-plugin-tm-userscript.git",
+    "vite-plugin-tm-userscript": "^1.0.3",
     "vue-tsc": "^0.34.10"
   }
 }

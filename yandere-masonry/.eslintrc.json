@@ -5,36 +5,50 @@
     "es6": true,
     "greasemonkey": true
   },
-  "parser": "@typescript-eslint/parser",
+  "globals": {
+    "defineProps": true
+  },
   "parserOptions": {
     "parser": "@typescript-eslint/parser",
-    "ecmaVersion": 2021,
-    "sourceType": "module"
+    "ecmaVersion": "latest",
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
   },
-  "plugins": [
-    "@typescript-eslint",
-    "unicorn"
-  ],
+  "plugins": ["@typescript-eslint", "unicorn"],
   "extends": [
     "eslint:recommended",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:unicorn/recommended"
+    "@vue/typescript/recommended",
+    "plugin:unicorn/recommended",
+    "plugin:vue/vue3-recommended"
   ],
   "rules": {
-    "quotes": [
-      "warn",
-      "single"
-    ],
-    "semi": [
-      "error",
-      "never"
-    ],
+    "vue/html-self-closing": ["warn", {"html": {"void": "never","normal": "never","component": "always"},"svg": "never","math": "never"}],
+    "vue/max-attributes-per-line": ["warn", {"singleline": 7,"multiline": 4}],
+    "vue/name-property-casing": ["error", "PascalCase"],
+    "vue/no-unused-vars": "warn",
+    "vue/no-v-html": "warn",
+    "vue/v-slot-style": "warn",
+    "vue/valid-v-slot": "warn",
+    "quotes": ["warn", "single"],
+    "semi": ["error", "never"],
     "no-console": "off",
     "no-unexpected-multiline": "error",
-    "no-unused-vars": "warn",
     "no-unused-expressions": "off",
+    "space-before-function-paren": [ "error", {"anonymous": "always", "named": "never", "asyncArrow": "always"}],
+    "arrow-parens": ["error", "as-needed"],
+    "no-return-await": "error",
+    "no-use-before-define": ["error", "nofunc"],
+    "no-useless-concat": "error",
+    "prefer-const": ["warn", {"ignoreReadBeforeAssign": false}],
+    "prefer-spread": "warn",
+    "prefer-rest-params": "warn",
+    "prefer-destructuring": ["warn", {"object": true, "array": false}],
+    "prefer-promise-reject-errors": ["warn", {"allowEmptyReject": true}],
     "unicorn/prevent-abbreviations": "off",
     "unicorn/prefer-dom-node-append": "off",
-    "unicorn/prefer-dom-node-remove": "off"
+    "unicorn/prefer-dom-node-remove": "off",
+    "unicorn/filename-case": ["warn", {"cases": {"kebabCase": true, "pascalCase": true}}]
   }
 }

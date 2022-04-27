@@ -369,7 +369,7 @@
       vuetify: new Vuetify({
         // theme: { dark: true }
       }),
-      data: {
+      data: () => ({
         showDrawer: false,
         showFab: false,
         showImageSelected: false,
@@ -395,7 +395,7 @@
           3000: 9,
           default: 6
         }
-      },
+      }),
       computed: {
         title() {
           return `${this.imageList.length} Posts of Konachan`;
@@ -426,6 +426,25 @@
         showRatingE(value) {
           localStorage.setItem('showRatingE', JSON.stringify(value));
         }
+      },
+      async mounted() {
+        this.changeThemeDark();
+        window.addEventListener('storage', () => {
+          this.changeThemeDark();
+        });
+        await this.initData();
+        window.addEventListener('scroll', throttleScroll(scroll => {
+          if (!this.showFab && scroll > 200) this.showFab = true;
+          if (this.requestStop) return;
+          if (this.requestState) return;
+          isReachBottom() && this.fetchData();
+        }, () => {
+          if (this.showFab) this.showFab = false;
+        }));
+        window.addEventListener('resize', () => {
+          this.innerWidth = window.innerWidth;
+          this.innerHeight = window.innerHeight;
+        });
       },
       methods: {
         async request(url) {
@@ -490,33 +509,14 @@
             console.log('error:', error);
           }
         }
-      },
-      async mounted() {
-        this.changeThemeDark();
-        window.addEventListener('storage', () => {
-          this.changeThemeDark();
-        });
-        await this.initData();
-        window.addEventListener('scroll', throttleScroll(scroll => {
-          if (!this.showFab && scroll > 200) this.showFab = true;
-          if (this.requestStop) return;
-          if (this.requestState) return;
-          isReachBottom() && this.fetchData();
-        }, () => {
-          if (this.showFab) this.showFab = false;
-        }));
-        window.addEventListener('resize', () => {
-          this.innerWidth = window.innerWidth;
-          this.innerHeight = window.innerHeight;
-        });
       }
     }).$mount('#konachan_app');
 
     function isReachBottom() {
       const doc = document.documentElement;
-      const clientHeight = doc.clientHeight;
-      const scrollTop = doc.scrollTop;
-      const scrollHeight = doc.scrollHeight;
+      const {clientHeight} = doc;
+      const {scrollTop} = doc;
+      const {scrollHeight} = doc;
       return (clientHeight + scrollTop) >= scrollHeight;
     }
 
