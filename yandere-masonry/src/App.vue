@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app :theme="store.theme">
     <AppBar />
     <NavDrawer />
     <v-main>
@@ -15,4 +15,12 @@
 import AppBar from './components/AppBar.vue'
 import NavDrawer from './components/NavDrawer.vue'
 import AppContainer from './components/AppContainer.vue'
+import store from './common/store'
+import { onMounted } from 'vue'
+
+onMounted(() => {
+  window.addEventListener('storage', () => {
+    store.theme = localStorage.getItem('darken-mode') ?? 'light'
+  })
+})
 </script>

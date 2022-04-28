@@ -1,10 +1,10 @@
 <template>
   <v-dialog
-    v-model="showImageSelected" :width="imageSelectedWidth" :height="imageSelectedHeight"
+    v-model="store.showImageSelected" :width="imageSelectedWidth" :height="imageSelectedHeight"
     :overlay-opacity="0.7"
   >
     <v-img
-      v-if="showImageSelected" :src="imageSelected.sampleUrl ?? void 0"
+      :src="imageSelected.sampleUrl ?? void 0"
       :lazy-src="imageSelected.previewUrl ?? void 0" @click="showImageInfo = !showImageInfo;"
     >
       <v-toolbar v-show="showImageInfo" flat color="transparent">
@@ -73,8 +73,7 @@ const showImageInfo = ref(false)
 const innerWidth = ref(window.innerWidth)
 const innerHeight = ref(window.innerHeight)
 
-const showImageSelected = computed(() => store.showImageSelected)
-const imageSelected = computed(() => store.imageList[store.imageSelectedIndex] || {})
+const imageSelected = computed(() => store.imageList[store.imageSelectedIndex] ?? {})
 
 const imageSelectedWidth = computed(() => {
   const width = Number.parseInt(

@@ -3,9 +3,10 @@ a.thumb {
   border: 2px solid;
   border-color: #232322;
 
-  &:visited {
-    border-color: #ffaaae;
-  }
+}
+
+a.thumb:visited {
+  border-color: #ffaaae;
 }
 
 div.content {
@@ -39,14 +40,4 @@ li.tag-type-character a[href^="/post"]:not(.no-browser-link)::before {
 
 .javascript-hide {
   display: block !important;
-}
-
-.konachan {
-  div.content {
-    width: 80% !important;
-  }
-
-  a.thumb:visited {
-    background-color: #ffaaae;
-  }
 }

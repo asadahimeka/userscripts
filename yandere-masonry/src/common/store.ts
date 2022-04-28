@@ -23,7 +23,7 @@ const store = reactive<AppState>({
   showFab: false,
   imageList: [],
   toggleDrawer() {
-    this.showDrawer = !this.showDrawer
+    store.showDrawer = !store.showDrawer
   }
 })
 
