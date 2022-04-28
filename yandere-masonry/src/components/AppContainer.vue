@@ -4,7 +4,7 @@
       <v-card v-for="(image, index) in store.imageList" :key="index" class="mb-2">
         <v-img
           transition="scroll-y-transition"
-          :src="image.previewUrl"
+          :src="image.previewUrl ?? void 0"
           :aspect-ratio="image.aspectRatio"
           @click="showImgModal(index)"
         >
@@ -35,12 +35,14 @@
         <v-icon>mdi-refresh</v-icon>
       </v-btn>
     </v-fab-transition>
+    <image-detail />
   </v-container>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue'
 import store from '@/common/store'
+import ImageDetail from './ImageDetail.vue'
 
 const columnCount = {
   300: 1,

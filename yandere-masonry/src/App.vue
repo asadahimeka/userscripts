@@ -1,24 +1,18 @@
-<script setup lang="ts">
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
   <v-app>
+    <AppBar />
+    <NavDrawer />
     <v-main>
-      <HelloWorld msg="Welcome to the Vuetify 3 Beta" />
+      <AppContainer />
     </v-main>
   </v-app>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+<script setup lang="ts">
+// This starter template is using Vue 3 <script setup> SFCs
+// Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
+
+import AppBar from './components/AppBar.vue'
+import NavDrawer from './components/NavDrawer.vue'
+import AppContainer from './components/AppContainer.vue'
+</script>

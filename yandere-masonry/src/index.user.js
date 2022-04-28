@@ -514,9 +514,9 @@
 
     function isReachBottom() {
       const doc = document.documentElement;
-      const {clientHeight} = doc;
-      const {scrollTop} = doc;
-      const {scrollHeight} = doc;
+      const { clientHeight } = doc;
+      const { scrollTop } = doc;
+      const { scrollHeight } = doc;
       return (clientHeight + scrollTop) >= scrollHeight;
     }
 

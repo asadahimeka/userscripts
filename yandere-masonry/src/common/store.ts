@@ -1,4 +1,5 @@
 import { reactive } from 'vue'
+import type Post from 'booru/dist/structures/Post'
 
 interface AppState {
   theme: string
@@ -8,7 +9,7 @@ interface AppState {
   imageSelectedIndex: number
   showDrawer: boolean
   showFab: boolean
-  imageList: any[],
+  imageList: Post[],
   toggleDrawer: () => void
 }
 
