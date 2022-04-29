@@ -1,4 +1,4 @@
-import { reactive } from 'vue'
+import Vue from 'vue'
 import type Post from 'booru/dist/structures/Post'
 
 interface AppState {
@@ -13,7 +13,7 @@ interface AppState {
   toggleDrawer: () => void
 }
 
-const store = reactive<AppState>({
+const store = Vue.observable<AppState>({
   theme: localStorage.getItem('darken-mode') ?? 'light',
   requestState: false,
   requestStop: false,

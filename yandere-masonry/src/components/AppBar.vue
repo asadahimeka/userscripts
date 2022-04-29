@@ -18,7 +18,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed } from '@vue/composition-api'
 import store from '@/common/store'
 
 const title = computed(() => store.imageList.length + ' Post')

@@ -26,6 +26,7 @@
     "target": "ESNext",
     "sourceMap": false,
     "allowSyntheticDefaultImports": true,
+    "noUnusedLocals": true,
     "baseUrl": ".",
     "paths": {
       "@/*": [
@@ -36,13 +37,29 @@
       "ESNext",
       "DOM",
       "DOM.Iterable"
-    ]
+    ],
+    "types": [
+      "vite/client",
+      "node",
+      "vue",
+      "vuetify",
+      "unplugin-vue2-script-setup/types"
+    ],
+  },
+  "vueCompilerOptions": {
+    "experimentalCompatMode": 2,
+    "experimentalTemplateCompilerOptions": {
+      "compatConfig": {
+        "MODE": 2
+      } // optional
+    }
   },
   "include": [
     "src/**/*.ts",
     "src/**/*.d.ts",
     "src/**/*.tsx",
-    "src/**/*.vue"
+    "src/**/*.vue",
+    "components.d.ts",
   ],
   "exclude": [
     "node_modules",

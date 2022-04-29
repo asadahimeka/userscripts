@@ -1,75 +1,109 @@
 <template>
   <v-dialog
-    v-model="store.showImageSelected" :width="imageSelectedWidth" :height="imageSelectedHeight"
+    v-model="store.showImageSelected"
+    :width="imageSelectedWidth"
+    :height="imageSelectedHeight"
     :overlay-opacity="0.7"
   >
     <v-img
+      v-if="store.showImageSelected"
       :src="imageSelected.sampleUrl ?? void 0"
-      :lazy-src="imageSelected.previewUrl ?? void 0" @click="showImageInfo = !showImageInfo;"
+      :lazy-src="imageSelected.previewUrl ?? void 0"
+      @click="showImageToolbar = !showImageToolbar;"
     >
-      <v-toolbar v-show="showImageInfo" flat color="transparent">
-        <v-chip-group class="hidden-sm-and-down" column>
-          <v-chip
-            v-for="tag in imageSelected.tags" :key="tag" class="mr-1" small
-            color="#ee8888" text-color="#ffffff"
-            @click.stop="toTagsPage(tag)" v-text="tag"
-          />
-        </v-chip-group>
+      <v-toolbar
+        v-show="showImageToolbar"
+        color="transparent"
+        height="auto"
+        flat
+      >
+        <v-chip
+          small
+          class="mr-1"
+          color="#ee8888b3"
+          text-color="#ffffff"
+          v-text="imageSelected.id+' '+imageSelected.rating.toUpperCase()"
+        />
         <v-spacer />
-        <v-btn icon color="#ee8888" @click.stop="toDetailPage">
-          <v-icon>mdi-link-variant</v-icon>
-          <v-tooltip activator="parent" anchor="bottom">
-            {{ '详情 ' + imageSelected.postView }}
-          </v-tooltip>
-        </v-btn>
-        <v-btn icon color="#ee8888" @click.stop="toSourcePage">
-          <v-icon>mdi-launch</v-icon>
-          <v-tooltip activator="parent" anchor="bottom">
-            {{ '来源 ' + imageSelected.sourceUrl }}
-          </v-tooltip>
-        </v-btn>
-        <v-btn icon color="#ee8888">
-          <v-icon>mdi-download</v-icon>
-          <v-menu dense open-on-hover offset-y activator="parent">
-            <v-list dense flat>
-              <v-list-item two-line link dense>
-                <v-list-item-header @click.stop="download(imageSelected.sampleUrl, imageSelected.sampleDownloadName)">
-                  <v-list-item-title>下载缩略图</v-list-item-title>
-                  <v-list-item-subtitle v-text="imageSelected.sampleDownloadText" />
-                </v-list-item-header>
-              </v-list-item>
-              <v-list-item v-if="imageSelected.jpegSize !== 0" two-line link dense>
-                <v-list-item-header @click.stop="download(imageSelected.jpegUrl, imageSelected.jpegDownloadName)">
-                  <v-list-item-title>下载高清图</v-list-item-title>
-                  <v-list-item-subtitle v-text="imageSelected.jpegDownloadText" />
-                </v-list-item-header>
-              </v-list-item>
-              <v-list-item two-line link dense>
-                <v-list-item-header @click.stop="download(imageSelected.fileUrl, imageSelected.fileDownloadName)">
-                  <v-list-item-title>下载原文件</v-list-item-title>
-                  <v-list-item-subtitle v-text="imageSelected.fileDownloadText" />
-                </v-list-item-header>
-              </v-list-item>
-            </v-list>
-          </v-menu>
-        </v-btn>
-        <v-btn icon color="#ee8888" @click.stop="close">
-          <v-icon>mdi-close</v-icon>
-          <v-tooltip activator="parent" anchor="bottom">
-            关闭
-          </v-tooltip>
-        </v-btn>
+        <v-tooltip bottom>
+          <template #activator="{ on, attrs }">
+            <v-btn icon color="#ee8888" v-bind="attrs" v-on="on" @click.stop="toDetailPage">
+              <v-icon>mdi-link-variant</v-icon>
+            </v-btn>
+          </template>
+          <span>{{ '详情 ' + imageSelected.postView }}</span>
+        </v-tooltip>
+        <v-tooltip v-if="imageSelected.sourceUrl" bottom>
+          <template #activator="{ on, attrs }">
+            <v-btn icon color="#ee8888" v-bind="attrs" v-on="on" @click.stop="toSourcePage">
+              <v-icon>mdi-launch</v-icon>
+            </v-btn>
+          </template>
+          <span>{{ '来源 ' + imageSelected.sourceUrl }}</span>
+        </v-tooltip>
+        <v-menu dense open-on-hover offset-y>
+          <template #activator="{ on, attrs }">
+            <v-btn icon color="#ee8888" v-bind="attrs" v-on="on">
+              <v-icon>mdi-download</v-icon>
+            </v-btn>
+          </template>
+          <v-list dense flat>
+            <v-list-item two-line link dense>
+              <v-list-item-content @click.stop="download(imageSelected.sampleUrl, imageSelected.sampleDownloadName)">
+                <v-list-item-title>下载缩略图</v-list-item-title>
+                <v-list-item-subtitle v-text="imageSelected.sampleDownloadText" />
+              </v-list-item-content>
+            </v-list-item>
+            <v-list-item v-if="imageSelected.jpegSize !== 0" two-line link dense>
+              <v-list-item-content @click.stop="download(imageSelected.jpegUrl, imageSelected.jpegDownloadName)">
+                <v-list-item-title>下载高清图</v-list-item-title>
+                <v-list-item-subtitle v-text="imageSelected.jpegDownloadText" />
+              </v-list-item-content>
+            </v-list-item>
+            <v-list-item two-line link dense>
+              <v-list-item-content @click.stop="download(imageSelected.fileUrl, imageSelected.fileDownloadName)">
+                <v-list-item-title>下载原文件</v-list-item-title>
+                <v-list-item-subtitle v-text="imageSelected.fileDownloadText" />
+              </v-list-item-content>
+            </v-list-item>
+          </v-list>
+        </v-menu>
+        <v-tooltip bottom>
+          <template #activator="{ on, attrs }">
+            <v-btn icon color="#ee8888" v-bind="attrs" v-on="on" @click.stop="close">
+              <v-icon>mdi-close</v-icon>
+            </v-btn>
+          </template>
+          <span>关闭</span>
+        </v-tooltip>
       </v-toolbar>
+      <v-chip-group
+        v-show="showImageToolbar"
+        class="pa-3 hidden-sm-and-down"
+        style="position: absolute;bottom: 0;"
+        column
+      >
+        <v-chip
+          v-for="tag in imageSelected.tags"
+          :key="tag"
+          small
+          class="mr-1"
+          color="#ee8888b3"
+          text-color="#ffffff"
+          @click.stop="toTagsPage(tag)"
+          v-text="tag"
+        />
+      </v-chip-group>
     </v-img>
   </v-dialog>
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from '@vue/composition-api'
 import store from '@/common/store'
 import { downloadFile, isURL } from '@/common/utils'
 
-const showImageInfo = ref(false)
+const showImageToolbar = ref(true)
 const innerWidth = ref(window.innerWidth)
 const innerHeight = ref(window.innerHeight)
 

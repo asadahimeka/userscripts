@@ -3,8 +3,11 @@
     <masonry :cols="columnCount" gutter="8px">
       <v-card v-for="(image, index) in store.imageList" :key="index" class="mb-2">
         <v-img
-          transition="scroll-y-transition" :src="image.previewUrl ?? void 0" :aspect-ratio="image.aspectRatio"
+          transition="scroll-y-transition"
+          :src="image.previewUrl ?? void 0"
+          :aspect-ratio="image.aspectRatio"
           @click="showImgModal(index)"
+          @click.middle="openDetail(image)"
         >
           <template #placeholder>
             <v-row class="fill-height ma-0" align="center" justify="center">
@@ -21,8 +24,13 @@
     </div>
     <v-fab-transition>
       <v-btn
-        v-show="store.showFab" fab dark fixed
-        bottom right color="pink"
+        v-show="store.showFab"
+        fab
+        dark
+        fixed
+        bottom
+        right
+        color="pink"
         @click="refresh"
       >
         <v-icon>mdi-refresh</v-icon>
@@ -33,21 +41,23 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from '@vue/composition-api'
+import { isReachBottom, searchBooru, throttleScroll } from '@/common/utils'
+import { useVuetify } from '@/plugins/vuetify'
 import store from '@/common/store'
 import ImageDetail from './ImageDetail.vue'
-import { isReachBottom, searchBooru, throttleScroll } from '@/common/utils'
+import type Post from 'booru/dist/structures/Post'
 
 const columnCount = ref({
   300: 1,
   600: 2,
   900: 3,
   1200: 4,
-  1600: 5,
-  1920: 6,
-  2400: 7,
-  2700: 8,
-  3000: 9,
+  1600: 6,
+  1920: 7,
+  2400: 8,
+  2700: 9,
+  3000: 10,
   default: 6
 })
 
@@ -56,6 +66,10 @@ const showNoMore = computed(() => !store.requestState && store.requestStop)
 const showImgModal = (index: number) => {
   store.imageSelectedIndex = index
   store.showImageSelected = true
+}
+
+const openDetail = (img: Post) => {
+  window.open(img.postView, '_blank', 'noreferrer')
 }
 
 let page = 1
@@ -93,8 +107,9 @@ const initData = async (refresh?: boolean) => {
   }
 }
 
+const vuetify = useVuetify()
 const refresh = () => {
-  window.scrollTo(0, 0)
+  vuetify.goTo(0)
   initData(true)
 }
 

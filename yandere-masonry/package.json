@@ -13,11 +13,12 @@
   },
   "dependencies": {
     "@mdi/font": "5.9.55",
+    "@vue/composition-api": "^1.6.0",
     "booru": "github:asadahimeka/booru",
     "roboto-fontface": "*",
-    "vue": "^3.2.33",
-    "vue-next-masonry": "^1.1.3",
-    "vuetify": "^3.0.0-beta.0",
+    "vue": "^2.6.14",
+    "vue-masonry-css": "^1.0.3",
+    "vuetify": "^2.6.4",
     "webfontloader": "^1.0.0"
   },
   "devDependencies": {
@@ -26,15 +27,19 @@
     "@types/webfontloader": "^1.6.34",
     "@typescript-eslint/eslint-plugin": "^5.21.0",
     "@typescript-eslint/parser": "^5.21.0",
-    "@vitejs/plugin-vue": "^2.3.1",
     "@vue/eslint-config-typescript": "^10.0.0",
-    "@vuetify/vite-plugin": "^1.0.0-alpha.0",
-    "eslint": "^8.13.0",
+    "@vue/runtime-dom": "^3.2.33",
+    "eslint": "^8.14.0",
     "eslint-plugin-unicorn": "^42.0.0",
     "eslint-plugin-vue": "^8.7.1",
+    "sass": "1.32.12",
     "typescript": "^4.6.3",
+    "unplugin-vue-components": "^0.19.3",
+    "unplugin-vue2-script-setup": "^0.10.2",
     "vite": "^2.9.5",
     "vite-plugin-tm-userscript": "^1.0.3",
+    "vite-plugin-vue2": "^2.0.0",
+    "vue-template-compiler": "^2.6.14",
     "vue-tsc": "^0.34.10"
   }
 }

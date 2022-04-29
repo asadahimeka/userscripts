@@ -1,12 +1,15 @@
-import { createApp } from 'vue'
+import Vue from 'vue'
+import VueCompositionAPI from '@vue/composition-api'
+import VueMasonry from 'vue-masonry-css'
 import vuetify from './plugins/vuetify'
-import masonry from 'vue-next-masonry'
-import { loadFonts } from './plugins/webfontloader'
 import App from './App.vue'
 
-loadFonts()
+Vue.use(VueCompositionAPI)
+Vue.use(VueMasonry)
 
-const app = createApp(App)
-app.use(vuetify)
-app.use(masonry)
-app.mount('#app')
+const app = new Vue({
+  vuetify,
+  render: h => h(App),
+})
+
+app.$mount('#app')
