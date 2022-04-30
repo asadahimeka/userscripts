@@ -2448,10 +2448,10 @@ validate-npm-package-license@^3.0.1:
     spdx-correct "^3.0.0"
     spdx-expression-parse "^3.0.0"
 
-vite-plugin-tm-userscript@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.npmmirror.com/vite-plugin-tm-userscript/-/vite-plugin-tm-userscript-1.0.3.tgz#03a651946a98deda3cfe23162e7758eedce57f87"
-  integrity sha512-UErP9ASvrFX9gTkmVqYq5F/5bn6f7Dram6QiCxp6eLGgjHyER03PNls6ebhNGQbFNB0l1ryAcyIapltrOur+ig==
+vite-plugin-tm-userscript@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.npmmirror.com/vite-plugin-tm-userscript/-/vite-plugin-tm-userscript-1.0.4.tgz#872a7d51cc9aad7a0327e2dab61d3262da034ff5"
+  integrity sha512-t6FLupsgYWyFBGVpCkV6Mko428MmtOiH7sNpvEJXLxCKJAeUQ7fh4FFnK0XTN3Msqgw35sNUTc7xrgF+JPPnKQ==
   dependencies:
     acorn-walk "^8.2.0"
 

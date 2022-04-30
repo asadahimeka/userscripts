@@ -26,12 +26,12 @@ export default defineConfig({
     //   ],
     // }),
     // https://github.com/asadahimeka/vite-plugin-tm-userscript
-    process.env.NODE_ENV == 'production' && Userscript({
+    Userscript({
       externalGlobals: {
-        'vue': 'Vue',
-        'vuetify': 'Vuetify',
-        '@vue/composition-api': 'VueCompositionAPI',
-        'vue-masonry-css': 'VueMasonry'
+        'vue': ['Vue'],
+        'vuetify': ['Vuetify'],
+        '@vue/composition-api': ['VueCompositionAPI'],
+        'vue-masonry-css': ['VueMasonry']
       }
     }),
   ],

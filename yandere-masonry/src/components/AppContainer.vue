@@ -72,11 +72,13 @@ const openDetail = (img: Post) => {
   window.open(img.postView, '_blank', 'noreferrer')
 }
 
-let page = 1
+const params = new URLSearchParams(location.search)
+let page = +(params.get('page') ?? 1)
 const fetchData = async (refresh?: boolean) => {
+  if (refresh) page = 1
   store.requestState = true
   try {
-    const results = await searchBooru(page)
+    const results = await searchBooru(location.host, page, params.get('tags') ?? '')
     if (Array.isArray(results) && results.length > 0) {
       store.imageList = refresh ? results : [...store.imageList, ...results]
       page++
@@ -99,7 +101,6 @@ const calcFetchTimes = () => {
 }
 
 const initData = async (refresh?: boolean) => {
-  page = 1
   await fetchData(refresh)
   const times = calcFetchTimes()
   for (let index = 0; index < times; index++) {

@@ -5,7 +5,7 @@ module.exports = defineTmHeader({
   "namespace": "me.asadahimeka.yandereMasonry",
   "version": "0.0.1",
   "author": "asadahimeka",
-  "description": "Yande.re/Konachan Masonry Layout.Fork form yande-re-chinese-patch.",
+  "description": "Yande.re/Konachan Masonry Layout. Fork form yande-re-chinese-patch.",
   "homepage": "https://github.com/asadahimeka/userscripts/tree/master/yandere-masonry",
   "source": "https://github.com/coderzhaoziwei/yande-re-chinese-patch",
   "license": "MIT",

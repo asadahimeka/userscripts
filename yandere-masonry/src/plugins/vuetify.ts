@@ -1,16 +1,20 @@
 // Styles
-import '@mdi/font/css/materialdesignicons.css'
-import 'vuetify/dist/vuetify.min.css'
+// import '@mdi/font/css/materialdesignicons.css'
+// import 'vuetify/dist/vuetify.min.css'
 
 import Vue from 'vue'
 import Vuetify from 'vuetify'
 import { getCurrentInstance } from '@vue/composition-api'
-import { loadFonts } from './webfontloader'
+// import { loadFonts } from './webfontloader'
 
-loadFonts()
-Vue.use(Vuetify)
+// loadFonts()
 
-export default new Vuetify({})
+function installVuetify() {
+  Vue.use(Vuetify)
+  return new Vuetify({})
+}
+
+export default installVuetify
 
 /** Get vuetify instance (For Composition api) */
 export function useVuetify() {
