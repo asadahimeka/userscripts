@@ -1,4 +1,3 @@
-/* eslint-disable unicorn/prefer-spread */
 import fs from 'node:fs/promises'
 
 async function main() {

@@ -22,16 +22,25 @@
           class="mr-1"
           color="#ee8888b3"
           text-color="#ffffff"
+          @click.stop="toDetailPage"
           v-text="imageSelected.id+' '+imageSelected.rating.toUpperCase()"
         />
         <v-spacer />
+        <v-tooltip v-if="!notYKSite" bottom>
+          <template #activator="{ on, attrs }">
+            <v-btn icon color="#ee8888" v-bind="attrs" v-on="on" @click.stop="addFavorite">
+              <v-icon>mdi-heart-plus-outline</v-icon>
+            </v-btn>
+          </template>
+          <span>收藏</span>
+        </v-tooltip>
         <v-tooltip bottom>
           <template #activator="{ on, attrs }">
             <v-btn icon color="#ee8888" v-bind="attrs" v-on="on" @click.stop="toDetailPage">
               <v-icon>mdi-link-variant</v-icon>
             </v-btn>
           </template>
-          <span>{{ '详情 ' + imageSelected.postView }}</span>
+          <span>详情</span>
         </v-tooltip>
         <v-tooltip v-if="imageSelected.sourceUrl" bottom>
           <template #activator="{ on, attrs }">
@@ -78,7 +87,7 @@
         </v-tooltip>
       </v-toolbar>
       <v-chip-group
-        v-show="showImageToolbar"
+        v-show="!notYKSite && showImageToolbar"
         class="pa-3 hidden-sm-and-down"
         style="position: absolute;bottom: 0;"
         column
@@ -113,31 +122,34 @@ const imageSelectedWidth = computed(() => {
   const width = Number.parseInt(
     Math.min(
       innerWidth.value * 0.9,
-      imageSelected.value.sampleWidth ?? innerWidth.value
+      imageSelected.value.sampleWidth || innerWidth.value
     ).toString()
   )
-  const height = Math.min(innerHeight.value * 0.9, imageSelected.value.sampleHeight ?? innerHeight.value)
+  const height = Math.min(innerHeight.value * 0.9, imageSelected.value.sampleHeight || innerHeight.value)
   const width2 = Number.parseInt((height * imageSelected.value.aspectRatio).toString())
   return Math.min(width, width2)
 })
 
 const imageSelectedHeight = computed(() => {
-  const width = Math.min(innerWidth.value * 0.9, imageSelected.value.sampleWidth ?? innerWidth.value)
+  const width = Math.min(innerWidth.value * 0.9, imageSelected.value.sampleWidth || innerWidth.value)
   const height = Number.parseInt(
     Math.min(
       innerHeight.value * 0.9,
-      imageSelected.value.sampleHeight ?? innerHeight.value
+      imageSelected.value.sampleHeight || innerHeight.value
     ).toString()
   )
   const height2 = Number.parseInt((width / imageSelected.value.aspectRatio).toString())
   return Math.min(height, height2)
 })
 
+const booruDomain = computed(() => imageSelected.value.booru.domain)
+const notYKSite = computed(() => {
+  return ['konachan', 'yande'].every(e => !booruDomain.value.includes(e))
+})
+
 const toTagsPage = (tag: string) => {
-  const { domain } = imageSelected.value.booru
-  const notKY = ['konachan', 'yande'].every(e => !domain.includes(e))
-  if (notKY) return
-  window.open(`https://${domain}/post?tags=${tag}`, '_blank', 'noreferrer')
+  if (notYKSite.value) return
+  window.open(`https://${booruDomain.value}/post?tags=${tag}`, '_blank', 'noreferrer')
 }
 
 const toDetailPage = () => {
@@ -156,6 +168,29 @@ const download = (url: string, name: string) => {
 
 const close = () => {
   store.showImageSelected = false
+}
+
+const addFavorite = async () => {
+  if (notYKSite.value) return
+  const form = new FormData()
+  form.append('id', imageSelected.value.id)
+  form.append('score', '3')
+  const response = await fetch(`https://${booruDomain.value}/post/vote.json`, {
+    method: 'POST',
+    headers: { 'x-csrf-token': sessionStorage.getItem('csrf-token') ?? '' },
+    body: form
+  })
+  if (!response.ok) return
+  const result = await response.json()
+  if (result.success) {
+    GM_notification({
+      title: 'Booru Masonry',
+      text: '收藏成功',
+      silent: true,
+      timeout: 2000,
+      image: 'https://i0.hdslb.com/bfs/album/39212b6f4c0ab75ca8f508237e756ed03f60e030.png'
+    })
+  }
 }
 
 onMounted(() => {

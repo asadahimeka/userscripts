@@ -1,8 +1,8 @@
 import { fileURLToPath, URL } from 'node:url'
 import { defineConfig } from 'vite'
 import { createVuePlugin as Vue2 } from 'vite-plugin-vue2'
-import { VuetifyResolver } from 'unplugin-vue-components/resolvers'
-import Components from 'unplugin-vue-components/vite'
+// import { VuetifyResolver } from 'unplugin-vue-components/resolvers'
+// import Components from 'unplugin-vue-components/vite'
 import ScriptSetup from 'unplugin-vue2-script-setup/vite'
 import Userscript from 'vite-plugin-tm-userscript'
 
@@ -33,11 +33,11 @@ export default defineConfig({
         '@vue/composition-api': ['VueCompositionAPI'],
         'vue-masonry-css': ['VueMasonry']
       }
-    }),
+    })
   ],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('src', import.meta.url))
-    },
-  },
+    }
+  }
 })

@@ -9,7 +9,8 @@ interface AppState {
   imageSelectedIndex: number
   showDrawer: boolean
   showFab: boolean
-  imageList: Post[],
+  currentPage: number
+  imageList: Post[]
   toggleDrawer: () => void
 }
 
@@ -21,6 +22,7 @@ const store = Vue.observable<AppState>({
   imageSelectedIndex: 0,
   showDrawer: false,
   showFab: false,
+  currentPage: 1,
   imageList: [],
   toggleDrawer() {
     store.showDrawer = !store.showDrawer

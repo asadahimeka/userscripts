@@ -3,9 +3,9 @@
     <v-list-item>
       <v-list-item-content>
         <v-list-item-title class="title">
-          Yande.re
+          Booru Masonry
         </v-list-item-title>
-        <v-list-item-subtitle>Rating Safe</v-list-item-subtitle>
+        <v-list-item-subtitle>Booru sites waterfall layout.</v-list-item-subtitle>
       </v-list-item-content>
     </v-list-item>
     <v-divider />

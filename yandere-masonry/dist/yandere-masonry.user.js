@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name              Yande.re Masonry
 // @version           0.0.1
-// @description       Yande.re/Konachan Masonry Layout. Fork form yande-re-chinese-patch.
+// @description       Yande.re/Konachan Waterfall Layout. Fork form yande-re-chinese-patch.
 // @author            asadahimeka
-// @namespace         me.asadahimeka.yandereMasonry
+// @namespace         me.asadahimeka.yanderemasonry
 // @license           MIT
 // @homepage          https://github.com/asadahimeka/userscripts/tree/master/yandere-masonry
 // @source            https://github.com/coderzhaoziwei/yande-re-chinese-patch
@@ -11,9 +11,12 @@
 // @match             https://yande.re/post*
 // @match             https://konachan.com/post*
 // @match             https://konachan.net/post*
+// @match             https://danbooru.donmai.us/posts*
+// @match             https://gelbooru.com/index.php*
 // @grant             GM_addStyle
-// @grant             GM_download
 // @grant             GM_registerMenuCommand
+// @grant             GM_addElement
+// @grant             GM_notification
 // ==/UserScript==
 
 var __defProp = Object.defineProperty;
@@ -27,26 +30,16 @@ var __publicField = (obj, key, value) => {
   var knStyle = "div.content{width:80%!important}a.thumb:visited{background-color:#ffaaae}\n";
   var loadingStyle = "#loading{height:100%;width:100%;position:fixed;z-index:99999;margin-top:0;top:0px}#loading p{margin:100px auto;line-height:100px;font-family:Meiryo UI,MicroHei,Microsoft YaHei UI;font-size:18px;color:#9671d7}#loading-center{width:100%;height:100%;position:relative}#loading-center-absolute{position:absolute;left:50%;top:50%;height:150px;width:150px;margin-top:-75px;margin-left:-50px}.loading-object{width:20px;height:20px;background-color:#9671d7;float:left;margin-right:20px;margin-top:65px;-moz-border-radius:50% 50% 50% 50%;-webkit-border-radius:50% 50% 50% 50%;border-radius:50%}#loading-object_one{-webkit-animation:object_one 1.5s infinite;animation:object_one 1.5s infinite}#loading-object_two{-webkit-animation:object_two 1.5s infinite;animation:object_two 1.5s infinite;-webkit-animation-delay:.25s;animation-delay:.25s}#loading-object_three{-webkit-animation:object_three 1.5s infinite;animation:object_three 1.5s infinite;-webkit-animation-delay:.5s;animation-delay:.5s}@keyframes object_one{75%{transform:scale(0);-webkit-transform:scale(0)}}@keyframes object_two{75%{transform:scale(0);-webkit-transform:scale(0)}}@keyframes object_three{75%{transform:scale(0);-webkit-transform:scale(0)}}\n";
   function prepareApp(callback) {
-    addSiteClass();
+    addSiteStyle();
     bindDbclick();
     GM_registerMenuCommand("\u7011\u5E03\u6D41\u6A21\u5F0F", async () => {
-      await loadDeps();
       replaceHead();
       replaceBody();
+      await loadDeps();
       callback == null ? void 0 : callback();
     });
   }
-  function loadScript(src) {
-    return new Promise((resolve) => {
-      const script = document.createElement("script");
-      script.src = src;
-      script.addEventListener("load", () => {
-        resolve();
-      }, false);
-      document.head.appendChild(script);
-    });
-  }
-  function addSiteClass() {
+  function addSiteStyle() {
     if (location.href.includes("yande.re")) {
       GM_addStyle(ykStyle);
     }
@@ -65,7 +58,26 @@ var __publicField = (obj, key, value) => {
       });
     }
   }
-  async function loadDeps() {
+  const cspSites = ["gelbooru"];
+  function loadScript(src) {
+    return new Promise((resolve) => {
+      let script;
+      if (cspSites.some((e) => location.href.includes(e))) {
+        script = GM_addElement("script", { src });
+        script.addEventListener("load", () => {
+          resolve();
+        }, false);
+      } else {
+        script = document.createElement("script");
+        script.src = src;
+        script.addEventListener("load", () => {
+          resolve();
+        }, false);
+        document.head.appendChild(script);
+      }
+    });
+  }
+  function loadDeps() {
     return Promise.all([
       loadScript("https://lib.baomitu.com/vue/2.6.14/vue.min.js"),
       loadScript("https://npm.elemecdn.com/@vue/composition-api@1.6.0"),
@@ -74,11 +86,14 @@ var __publicField = (obj, key, value) => {
     ]);
   }
   function replaceHead() {
+    const el = document.querySelector('[name="csrf-token"]');
+    const token = el == null ? void 0 : el.getAttribute("content");
+    token && sessionStorage.setItem("csrf-token", token);
     document.head.innerHTML = `
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
     <meta name="referrer" content="no-referrer">
-    <title>Yandere Masonry</title>
+    <title>Booru Masonry</title>
     <link rel="stylesheet" href="https://npm.elemecdn.com/normalize.css/normalize.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900">
     <link rel="stylesheet" href="https://npm.elemecdn.com/@mdi/font@5.9.55/css/materialdesignicons.min.css">
@@ -133,6 +148,7 @@ var __publicField = (obj, key, value) => {
     imageSelectedIndex: 0,
     showDrawer: false,
     showFab: false,
+    currentPage: 1,
     imageList: [],
     toggleDrawer() {
       store.showDrawer = !store.showDrawer;
@@ -140,10 +156,24 @@ var __publicField = (obj, key, value) => {
   });
   const __sfc_main$4 = {};
   __sfc_main$4.setup = (__props, __ctx) => {
-    const title = VueCompositionAPI2.computed(() => store.imageList.length + " Post");
+    const title = VueCompositionAPI2.computed(() => {
+      const {
+        0: img,
+        length
+      } = store.imageList;
+      if (img)
+        return `${img.booru.domain.toUpperCase()} - ${length} Posts - Page ${store.currentPage}`;
+      return "\u{1F682}";
+    });
+    const vuetify = useVuetify();
+    const toggleDarkmode = () => {
+      vuetify.theme.dark = !vuetify.theme.dark;
+      localStorage.setItem("__darkmode", vuetify.theme.dark ? "dark" : "light");
+    };
     return {
       store,
-      title
+      title,
+      toggleDarkmode
     };
   };
   var render$4 = function() {
@@ -165,11 +195,12 @@ var __publicField = (obj, key, value) => {
       }
     }), _c("v-spacer"), _c("v-btn", {
       attrs: {
-        "text": "",
-        "color": "#ffffff",
-        "disabled": ""
+        "icon": ""
+      },
+      on: {
+        "click": _vm.toggleDarkmode
       }
-    }, [_vm._v(" Rating Safe ")]), _c("v-progress-linear", {
+    }, [_c("v-icon", [_vm._v("mdi-brightness-6")])], 1), _c("v-progress-linear", {
       attrs: {
         "active": _vm.store.requestState,
         "height": 6,
@@ -270,7 +301,7 @@ var __publicField = (obj, key, value) => {
       }
     }, [_c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", {
       staticClass: "title"
-    }, [_vm._v(" Yande.re ")]), _c("v-list-item-subtitle", [_vm._v("Rating Safe")])], 1)], 1), _c("v-divider"), _c("v-list", {
+    }, [_vm._v(" Booru Masonry ")]), _c("v-list-item-subtitle", [_vm._v("Booru sites waterfall layout.")])], 1)], 1), _c("v-divider"), _c("v-list", {
       attrs: {
         "dense": "",
         "nav": ""
@@ -537,29 +568,19 @@ var __publicField = (obj, key, value) => {
     }
     function expandTags(r) {
       return r.map((r2) => {
-        const e = expandedTags[r2.toLowerCase()];
-        return encodeURIComponent(e || r2);
+        const t = expandedTags[r2.toLowerCase()];
+        return encodeURIComponent(t || r2);
       });
     }
-    function searchURI(r, e = [], t = 100, o) {
-      return `http${r.insecure ? "" : "s"}://${r.domain}${r.api.search}${r.tagQuery}=${expandTags(e).join(r.tagJoin)}&limit=${t}&${r.paginate}=${o}`;
+    function searchURI(r, t = [], e = 100, o) {
+      return `http${r.insecure ? "" : "s"}://${r.domain}${r.api.search}${r.tagQuery}=${expandTags(t).join(r.tagJoin)}&limit=${e}&${r.paginate}=${o}`;
     }
-    exports.BooruError = BooruError, exports.USER_AGENT = "booru (https://github.com/AtoraSuunva/booru)", exports.searchURI = searchURI, exports.defaultOptions = { headers: { Accept: "application/json, application/xml;q=0.9, */*;q=0.8", "User-Agent": exports.USER_AGENT } };
+    exports.BooruError = BooruError, exports.USER_AGENT = "booru (https://github.com/AtoraSuunva/booru)", exports.searchURI = searchURI, exports.defaultOptions = { headers: { Accept: "application/json, application/xml;q=0.9, */*;q=0.8" } };
   })(Constants);
   var Booru = {};
-  var browserPonyfill = { exports: {} };
-  (function(module, exports) {
-    var global2 = typeof self !== "undefined" ? self : commonjsGlobal;
-    var __self__ = function() {
-      function F() {
-        this.fetch = false;
-        this.DOMException = global2.DOMException;
-      }
-      F.prototype = global2;
-      return new F();
-    }();
+  (function() {
     (function(self2) {
-      (function(exports2) {
+      (function(exports) {
         var support = {
           searchParams: "URLSearchParams" in self2,
           iterable: "Symbol" in self2 && "iterator" in Symbol,
@@ -916,24 +937,24 @@ var __publicField = (obj, key, value) => {
           }
           return new Response(null, { status, headers: { location: url } });
         };
-        exports2.DOMException = self2.DOMException;
+        exports.DOMException = self2.DOMException;
         try {
-          new exports2.DOMException();
+          new exports.DOMException();
         } catch (err) {
-          exports2.DOMException = function(message, name) {
+          exports.DOMException = function(message, name) {
             this.message = message;
             this.name = name;
             var error = Error(message);
             this.stack = error.stack;
           };
-          exports2.DOMException.prototype = Object.create(Error.prototype);
-          exports2.DOMException.prototype.constructor = exports2.DOMException;
+          exports.DOMException.prototype = Object.create(Error.prototype);
+          exports.DOMException.prototype.constructor = exports.DOMException;
         }
-        function fetch(input, init) {
+        function fetch2(input, init) {
           return new Promise(function(resolve, reject) {
             var request = new Request(input, init);
             if (request.signal && request.signal.aborted) {
-              return reject(new exports2.DOMException("Aborted", "AbortError"));
+              return reject(new exports.DOMException("Aborted", "AbortError"));
             }
             var xhr = new XMLHttpRequest();
             function abortXhr() {
@@ -956,7 +977,7 @@ var __publicField = (obj, key, value) => {
               reject(new TypeError("Network request failed"));
             };
             xhr.onabort = function() {
-              reject(new exports2.DOMException("Aborted", "AbortError"));
+              reject(new exports.DOMException("Aborted", "AbortError"));
             };
             xhr.open(request.method, request.url, true);
             if (request.credentials === "include") {
@@ -981,32 +1002,22 @@ var __publicField = (obj, key, value) => {
             xhr.send(typeof request._bodyInit === "undefined" ? null : request._bodyInit);
           });
         }
-        fetch.polyfill = true;
+        fetch2.polyfill = true;
         if (!self2.fetch) {
-          self2.fetch = fetch;
+          self2.fetch = fetch2;
           self2.Headers = Headers;
           self2.Request = Request;
           self2.Response = Response;
         }
-        exports2.Headers = Headers;
-        exports2.Request = Request;
-        exports2.Response = Response;
-        exports2.fetch = fetch;
-        Object.defineProperty(exports2, "__esModule", { value: true });
-        return exports2;
+        exports.Headers = Headers;
+        exports.Request = Request;
+        exports.Response = Response;
+        exports.fetch = fetch2;
+        Object.defineProperty(exports, "__esModule", { value: true });
+        return exports;
       })({});
-    })(__self__);
-    __self__.fetch.ponyfill = true;
-    delete __self__.fetch.polyfill;
-    var ctx = __self__;
-    exports = ctx.fetch;
-    exports.default = ctx.fetch;
-    exports.fetch = ctx.fetch;
-    exports.Headers = ctx.Headers;
-    exports.Request = ctx.Request;
-    exports.Response = ctx.Response;
-    module.exports = exports;
-  })(browserPonyfill, browserPonyfill.exports);
+    })(typeof self !== "undefined" ? self : commonjsGlobal);
+  })();
   var Utils$1 = {};
   var parser = {};
   var node2json = {};
@@ -2271,7 +2282,7 @@ var __publicField = (obj, key, value) => {
     return Array.isArray(e.tags) ? e.tags : (t = e.tags && e.tags.general ? Object.values(e.tags).reduce((e2, t2) => e2.concat(t2), []) : e.tags ? e.tags.split(" ") : e.tag_string.split(" ").map((e2) => e2.replace(/,/g, "").replace(/ /g, "_")), t.filter((e2) => e2 !== ""));
   }
   function formatFileSize(e) {
-    return e > 1048576 ? (e / 1048576).toFixed(2) + "MB" : e > 1024 ? (e / 1024).toFixed(2) + "KB" : e.toFixed(2) + "B";
+    return e == null ? "N/A" : e > 1048576 ? (e / 1048576).toFixed(2) + "MB" : e > 1024 ? (e / 1024).toFixed(2) + "KB" : e.toFixed(2) + "B";
   }
   Object.defineProperty(Post$1, "__esModule", { value: true });
   class Post {
@@ -2457,7 +2468,7 @@ var __publicField = (obj, key, value) => {
       return t && t.__esModule ? t : { default: t };
     };
     Object.defineProperty(exports, "__esModule", { value: true }), exports.Booru = void 0;
-    const cross_fetch_1 = __importDefault2(browserPonyfill.exports), Constants_12 = Constants, Utils_1 = Utils$1, Post_1 = __importDefault2(Post$1), SearchResults_1 = __importDefault2(SearchResults$1);
+    const Constants_12 = Constants, Utils_1 = Utils$1, Post_1 = __importDefault2(Post$1), SearchResults_1 = __importDefault2(SearchResults$1);
     class Booru2 {
       constructor(t, e) {
         __publicField(this, "domain");
@@ -2487,11 +2498,9 @@ var __publicField = (obj, key, value) => {
         Array.isArray(t) || (t = [t]), r && (this.site.random ? t.push("order:random") : a = 100), this.site.defaultTags && (t = t.concat(this.site.defaultTags.filter((e2) => !t.includes(e2))));
         const o = e || this.getSearchUrl({ tags: t, limit: a || s, page: i }), n = Constants_12.defaultOptions, l = this.site.type === "xml";
         try {
-          const t2 = await (0, cross_fetch_1.default)(o, n);
-          if (t2.status === 503) {
-            if ((await t2.clone().text()).includes("cf-browser-verification"))
-              throw new Constants_12.BooruError("Received a CloudFlare browser verification request. Can't proceed.");
-          }
+          const t2 = await fetch(o, n);
+          if (t2.status === 503 && (await t2.clone().text()).includes("cf-browser-verification"))
+            throw new Constants_12.BooruError("Received a CloudFlare browser verification request. Can't proceed.");
           const e2 = l ? await t2.text() : await t2.json(), s2 = l ? (0, Utils_1.jsonfy)(e2) : e2;
           if (t2.ok)
             return s2;
@@ -2508,11 +2517,8 @@ var __publicField = (obj, key, value) => {
       parseSearchResult(t, { fakeLimit: e, tags: s, limit: r, random: i, page: a, showUnavailable: o }) {
         if (t.success === false)
           throw new Constants_12.BooruError(t.message || t.reason);
-        if (t["@attributes"]) {
-          t = t["@attributes"].count !== "0" && t.post ? Array.isArray(t.post) ? t.post : [t.post] : [];
-        }
         let n;
-        t.posts && (t = t.posts), t.images && (t = t.images), t === "" ? n = [] : e ? n = (0, Utils_1.shuffle)(t) : t.constructor === Object && (n = [t]);
+        t["@attributes"] && (t = t["@attributes"].count !== "0" && t.post ? Array.isArray(t.post) ? t.post : [t.post] : []), t.posts && (t = t.posts), t.images && (t = t.images), t === "" ? n = [] : e ? n = (0, Utils_1.shuffle)(t) : t.constructor === Object && (n = [t]);
         let l = (n || t).slice(0, r).map((t2) => new Post_1.default(t2, this));
         const u = { limit: r, random: i, page: a, showUnavailable: o };
         return s === void 0 && (s = []), Array.isArray(s) || (s = [s]), o || (l = l.filter((t2) => t2.available)), new SearchResults_1.default(l, s, u, this);
@@ -2613,8 +2619,8 @@ var __publicField = (obj, key, value) => {
       return Constants_3.BooruError;
     } });
   })(dist);
-  async function searchBooru(domain, page, tags) {
-    return dist.search(domain, tags, { page, limit: 20 });
+  async function searchBooru(domain, page, tags = "") {
+    return dist.search(domain, tags, { page, limit: 40 });
   }
   function isURL(s) {
     return /^https?:\/\/.*/.test(s);
@@ -2660,27 +2666,25 @@ var __publicField = (obj, key, value) => {
       return (_a2 = store.imageList[store.imageSelectedIndex]) != null ? _a2 : {};
     });
     const imageSelectedWidth = VueCompositionAPI2.computed(() => {
-      var _a2, _b;
-      const width = Number.parseInt(Math.min(innerWidth.value * 0.9, (_a2 = imageSelected.value.sampleWidth) != null ? _a2 : innerWidth.value).toString());
-      const height = Math.min(innerHeight.value * 0.9, (_b = imageSelected.value.sampleHeight) != null ? _b : innerHeight.value);
+      const width = Number.parseInt(Math.min(innerWidth.value * 0.9, imageSelected.value.sampleWidth || innerWidth.value).toString());
+      const height = Math.min(innerHeight.value * 0.9, imageSelected.value.sampleHeight || innerHeight.value);
       const width2 = Number.parseInt((height * imageSelected.value.aspectRatio).toString());
       return Math.min(width, width2);
     });
     const imageSelectedHeight = VueCompositionAPI2.computed(() => {
-      var _a2, _b;
-      const width = Math.min(innerWidth.value * 0.9, (_a2 = imageSelected.value.sampleWidth) != null ? _a2 : innerWidth.value);
-      const height = Number.parseInt(Math.min(innerHeight.value * 0.9, (_b = imageSelected.value.sampleHeight) != null ? _b : innerHeight.value).toString());
+      const width = Math.min(innerWidth.value * 0.9, imageSelected.value.sampleWidth || innerWidth.value);
+      const height = Number.parseInt(Math.min(innerHeight.value * 0.9, imageSelected.value.sampleHeight || innerHeight.value).toString());
       const height2 = Number.parseInt((width / imageSelected.value.aspectRatio).toString());
       return Math.min(height, height2);
     });
+    const booruDomain = VueCompositionAPI2.computed(() => imageSelected.value.booru.domain);
+    const notYKSite = VueCompositionAPI2.computed(() => {
+      return ["konachan", "yande"].every((e) => !booruDomain.value.includes(e));
+    });
     const toTagsPage = (tag) => {
-      const {
-        domain
-      } = imageSelected.value.booru;
-      const notKY = ["konachan", "yande"].every((e) => !domain.includes(e));
-      if (notKY)
+      if (notYKSite.value)
         return;
-      window.open(`https://${domain}/post?tags=${tag}`, "_blank", "noreferrer");
+      window.open(`https://${booruDomain.value}/post?tags=${tag}`, "_blank", "noreferrer");
     };
     const toDetailPage = () => {
       window.open(imageSelected.value.postView, "_blank", "noreferrer");
@@ -2699,6 +2703,33 @@ var __publicField = (obj, key, value) => {
     const close = () => {
       store.showImageSelected = false;
     };
+    const addFavorite = async () => {
+      var _a2;
+      if (notYKSite.value)
+        return;
+      const form = new FormData();
+      form.append("id", imageSelected.value.id);
+      form.append("score", "3");
+      const response = await fetch(`https://${booruDomain.value}/post/vote.json`, {
+        method: "POST",
+        headers: {
+          "x-csrf-token": (_a2 = sessionStorage.getItem("csrf-token")) != null ? _a2 : ""
+        },
+        body: form
+      });
+      if (!response.ok)
+        return;
+      const result = await response.json();
+      if (result.success) {
+        GM_notification({
+          title: "Booru Masonry",
+          text: "\u6536\u85CF\u6210\u529F",
+          silent: true,
+          timeout: 2e3,
+          image: "https://i0.hdslb.com/bfs/album/39212b6f4c0ab75ca8f508237e756ed03f60e030.png"
+        });
+      }
+    };
     VueCompositionAPI2.onMounted(() => {
       window.addEventListener("resize", () => {
         innerWidth.value = window.innerWidth;
@@ -2711,11 +2742,13 @@ var __publicField = (obj, key, value) => {
       imageSelected,
       imageSelectedWidth,
       imageSelectedHeight,
+      notYKSite,
       toTagsPage,
       toDetailPage,
       toSourcePage,
       download,
-      close
+      close,
+      addFavorite
     };
   };
   var render$2 = function() {
@@ -2767,8 +2800,14 @@ var __publicField = (obj, key, value) => {
       },
       domProps: {
         "textContent": _vm._s(_vm.imageSelected.id + " " + _vm.imageSelected.rating.toUpperCase())
+      },
+      on: {
+        "click": function($event) {
+          $event.stopPropagation();
+          return _vm.toDetailPage.apply(null, arguments);
+        }
       }
-    }), _c("v-spacer"), _c("v-tooltip", {
+    }), _c("v-spacer"), !_vm.notYKSite ? _c("v-tooltip", {
       attrs: {
         "bottom": ""
       },
@@ -2784,13 +2823,13 @@ var __publicField = (obj, key, value) => {
             on: {
               "click": function($event) {
                 $event.stopPropagation();
-                return _vm.toDetailPage.apply(null, arguments);
+                return _vm.addFavorite.apply(null, arguments);
               }
             }
-          }, "v-btn", attrs, false), on), [_c("v-icon", [_vm._v("mdi-link-variant")])], 1)];
+          }, "v-btn", attrs, false), on), [_c("v-icon", [_vm._v("mdi-heart-plus-outline")])], 1)];
         }
-      }], null, false, 1327699170)
-    }, [_c("span", [_vm._v(_vm._s("\u8BE6\u60C5 " + _vm.imageSelected.postView))])]), _vm.imageSelected.sourceUrl ? _c("v-tooltip", {
+      }], null, false, 881966180)
+    }, [_c("span", [_vm._v("\u6536\u85CF")])]) : _vm._e(), _c("v-tooltip", {
       attrs: {
         "bottom": ""
       },
@@ -2798,6 +2837,28 @@ var __publicField = (obj, key, value) => {
         key: "activator",
         fn: function(_ref2) {
           var on = _ref2.on, attrs = _ref2.attrs;
+          return [_c("v-btn", _vm._g(_vm._b({
+            attrs: {
+              "icon": "",
+              "color": "#ee8888"
+            },
+            on: {
+              "click": function($event) {
+                $event.stopPropagation();
+                return _vm.toDetailPage.apply(null, arguments);
+              }
+            }
+          }, "v-btn", attrs, false), on), [_c("v-icon", [_vm._v("mdi-link-variant")])], 1)];
+        }
+      }], null, false, 1327699170)
+    }, [_c("span", [_vm._v("\u8BE6\u60C5")])]), _vm.imageSelected.sourceUrl ? _c("v-tooltip", {
+      attrs: {
+        "bottom": ""
+      },
+      scopedSlots: _vm._u([{
+        key: "activator",
+        fn: function(_ref3) {
+          var on = _ref3.on, attrs = _ref3.attrs;
           return [_c("v-btn", _vm._g(_vm._b({
             attrs: {
               "icon": "",
@@ -2820,8 +2881,8 @@ var __publicField = (obj, key, value) => {
       },
       scopedSlots: _vm._u([{
         key: "activator",
-        fn: function(_ref3) {
-          var on = _ref3.on, attrs = _ref3.attrs;
+        fn: function(_ref4) {
+          var on = _ref4.on, attrs = _ref4.attrs;
           return [_c("v-btn", _vm._g(_vm._b({
             attrs: {
               "icon": "",
@@ -2892,8 +2953,8 @@ var __publicField = (obj, key, value) => {
       },
       scopedSlots: _vm._u([{
         key: "activator",
-        fn: function(_ref4) {
-          var on = _ref4.on, attrs = _ref4.attrs;
+        fn: function(_ref5) {
+          var on = _ref5.on, attrs = _ref5.attrs;
           return [_c("v-btn", _vm._g(_vm._b({
             attrs: {
               "icon": "",
@@ -2912,8 +2973,8 @@ var __publicField = (obj, key, value) => {
       directives: [{
         name: "show",
         rawName: "v-show",
-        value: _vm.showImageToolbar,
-        expression: "showImageToolbar"
+        value: !_vm.notYKSite && _vm.showImageToolbar,
+        expression: "!notYKSite && showImageToolbar"
       }],
       staticClass: "pa-3 hidden-sm-and-down",
       staticStyle: {
@@ -2957,7 +3018,6 @@ var __publicField = (obj, key, value) => {
   }();
   const __sfc_main$1 = {};
   __sfc_main$1.setup = (__props, __ctx) => {
-    var _a2;
     const columnCount = VueCompositionAPI2.ref({
       300: 1,
       600: 2,
@@ -2971,6 +3031,7 @@ var __publicField = (obj, key, value) => {
       default: 6
     });
     const showNoMore = VueCompositionAPI2.computed(() => !store.requestState && store.requestStop);
+    const showLoadMore = VueCompositionAPI2.computed(() => !store.requestState && !store.requestStop);
     const showImgModal = (index) => {
       store.imageSelectedIndex = index;
       store.showImageSelected = true;
@@ -2979,15 +3040,18 @@ var __publicField = (obj, key, value) => {
       window.open(img.postView, "_blank", "noreferrer");
     };
     const params = new URLSearchParams(location.search);
-    let page = +((_a2 = params.get("page")) != null ? _a2 : 1);
+    let page = Number(params.get("page")) || 1;
     const fetchData = async (refresh2) => {
-      var _a3;
       if (refresh2)
         page = 1;
       store.requestState = true;
       try {
-        const results = await searchBooru(location.host, page, (_a3 = params.get("tags")) != null ? _a3 : "");
+        let tags = params.get("tags");
+        if (!tags || tags === "all")
+          tags = "";
+        const results = await searchBooru(location.host, page, tags);
         if (Array.isArray(results) && results.length > 0) {
+          store.currentPage = page;
           store.imageList = refresh2 ? results : [...store.imageList, ...results];
           page++;
         } else {
@@ -2999,12 +3063,11 @@ var __publicField = (obj, key, value) => {
         store.requestState = false;
       }
     };
-    const vcont = VueCompositionAPI2.ref(null);
     const calcFetchTimes = () => {
-      var _a3;
-      const cnth = (_a3 = vcont.value) == null ? void 0 : _a3.clientHeight;
+      const vcont = document.querySelector("._vcont");
+      const cnth = vcont == null ? void 0 : vcont.clientHeight;
       const doch = document.documentElement.clientHeight;
-      return cnth ? Math.ceil(doch / cnth) : 1;
+      return cnth ? Math.floor(doch / cnth) : 1;
     };
     const initData = async (refresh2) => {
       await fetchData(refresh2);
@@ -3037,9 +3100,10 @@ var __publicField = (obj, key, value) => {
       store,
       columnCount,
       showNoMore,
+      showLoadMore,
       showImgModal,
       openDetail,
-      vcont,
+      fetchData,
       refresh
     };
   };
@@ -3051,8 +3115,7 @@ var __publicField = (obj, key, value) => {
     var _h = _vm.$createElement;
     var _c = _vm._self._c || _h;
     return _c("v-container", {
-      ref: _vm.vcont,
-      staticClass: "pa-2",
+      staticClass: "_vcont pa-2",
       attrs: {
         "fluid": ""
       }
@@ -3107,6 +3170,31 @@ var __publicField = (obj, key, value) => {
       directives: [{
         name: "show",
         rawName: "v-show",
+        value: _vm.store.requestState,
+        expression: "store.requestState"
+      }],
+      attrs: {
+        "color": "#ee8888",
+        "text": ""
+      }
+    }, [_vm._v(" \u52A0\u8F7D\u4E2D... ")]), _c("v-btn", {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: _vm.showLoadMore,
+        expression: "showLoadMore"
+      }],
+      attrs: {
+        "color": "#ee8888",
+        "text": ""
+      },
+      on: {
+        "click": _vm.fetchData
+      }
+    }, [_vm._v(" \u52A0\u8F7D\u66F4\u591A ")]), _c("v-btn", {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
         value: _vm.showNoMore,
         expression: "showNoMore"
       }],
@@ -3149,18 +3237,13 @@ var __publicField = (obj, key, value) => {
   __sfc_main.setup = (__props, __ctx) => {
     const vuetify = useVuetify();
     const changeTheme = () => {
-      const mode = localStorage.getItem("darken-mode");
+      const mode = localStorage.getItem("__darkmode");
       vuetify.theme.dark = mode === "dark";
     };
     VueCompositionAPI2.onMounted(() => {
       changeTheme();
-      window.addEventListener("storage", () => {
-        changeTheme();
-      });
     });
-    return {
-      store
-    };
+    return {};
   };
   __sfc_main.components = Object.assign({
     AppBar,
@@ -3171,11 +3254,7 @@ var __publicField = (obj, key, value) => {
     var _vm = this;
     var _h = _vm.$createElement;
     var _c = _vm._self._c || _h;
-    return _c("v-app", {
-      attrs: {
-        "theme": _vm.store.theme
-      }
-    }, [_c("AppBar"), _c("NavDrawer"), _c("v-main", {
+    return _c("v-app", [_c("AppBar"), _c("NavDrawer"), _c("v-main", {
       attrs: {
         "app": ""
       }

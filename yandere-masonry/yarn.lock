@@ -897,8 +897,8 @@ boolbase@^1.0.0:
   integrity sha512-JZOSA7Mo9sNGB8+UjSgzdLtokWAky1zbztM3WRLCbZ70/3cTANmQmOdR7y2g+J0e2WXywy1yS468tY+IruqEww==
 
 "booru@github:asadahimeka/booru":
-  version "2.5.6"
-  resolved "https://codeload.github.com/asadahimeka/booru/tar.gz/7aaf7f722064795541bce3cdba2b6c6cd216b64c"
+  version "2.5.8"
+  resolved "https://codeload.github.com/asadahimeka/booru/tar.gz/199ad0531cfb42d1dd441d4c4eec4fe5517334b7"
   dependencies:
     cross-fetch "^3.1.5"
     fast-xml-parser "^3.19.0"

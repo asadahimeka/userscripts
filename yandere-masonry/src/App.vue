@@ -1,5 +1,5 @@
 <template>
-  <v-app :theme="store.theme">
+  <v-app>
     <AppBar />
     <NavDrawer />
     <v-main app>
@@ -15,18 +15,16 @@
 import AppBar from './components/AppBar.vue'
 import NavDrawer from './components/NavDrawer.vue'
 import AppContainer from './components/AppContainer.vue'
-import store from './common/store'
 import { onMounted } from '@vue/composition-api'
 import { useVuetify } from './plugins/vuetify'
 
 const vuetify = useVuetify()
 const changeTheme = () => {
-  const mode = localStorage.getItem('darken-mode')
+  const mode = localStorage.getItem('__darkmode')
   vuetify.theme.dark = mode === 'dark'
 }
 
 onMounted(() => {
   changeTheme()
-  window.addEventListener('storage', () => { changeTheme() })
 })
 </script>

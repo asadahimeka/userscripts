@@ -2,7 +2,7 @@
   "name": "yandere-masonry",
   "version": "0.0.1",
   "description": "Fork form yande-re-chinese-patch",
-  "author": "",
+  "author": "asadahimeka",
   "license": "MIT",
   "main": "dist/yandere-masonry.user.js",
   "scripts": {
@@ -10,7 +10,8 @@
     "build": "vite build",
     "postbuild": "node postbuild.mjs",
     "lint": "eslint src --ext .ts,.vue",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "updb": "yarn add github:asadahimeka/booru --no-cache"
   },
   "dependencies": {
     "@mdi/font": "5.9.55",

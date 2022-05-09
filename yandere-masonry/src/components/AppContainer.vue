@@ -1,5 +1,5 @@
 <template>
-  <v-container :ref="vcont" class="pa-2" fluid>
+  <v-container class="_vcont pa-2" fluid>
     <masonry :cols="columnCount" gutter="8px">
       <v-card v-for="(image, index) in store.imageList" :key="index" class="mb-2">
         <v-img
@@ -18,6 +18,12 @@
       </v-card>
     </masonry>
     <div class="d-flex justify-center">
+      <v-btn v-show="store.requestState" color="#ee8888" text>
+        加载中...
+      </v-btn>
+      <v-btn v-show="showLoadMore" color="#ee8888" text @click="fetchData">
+        加载更多
+      </v-btn>
       <v-btn v-show="showNoMore" color="#ee8888" text>
         下面没有了...
       </v-btn>
@@ -62,6 +68,7 @@ const columnCount = ref({
 })
 
 const showNoMore = computed(() => !store.requestState && store.requestStop)
+const showLoadMore = computed(() => !store.requestState && !store.requestStop)
 
 const showImgModal = (index: number) => {
   store.imageSelectedIndex = index
@@ -73,13 +80,16 @@ const openDetail = (img: Post) => {
 }
 
 const params = new URLSearchParams(location.search)
-let page = +(params.get('page') ?? 1)
+let page = Number(params.get('page')) || 1
 const fetchData = async (refresh?: boolean) => {
   if (refresh) page = 1
   store.requestState = true
   try {
-    const results = await searchBooru(location.host, page, params.get('tags') ?? '')
+    let tags = params.get('tags')
+    if (!tags || tags === 'all') tags = ''
+    const results = await searchBooru(location.host, page, tags)
     if (Array.isArray(results) && results.length > 0) {
+      store.currentPage = page
       store.imageList = refresh ? results : [...store.imageList, ...results]
       page++
     } else {
@@ -92,12 +102,11 @@ const fetchData = async (refresh?: boolean) => {
   }
 }
 
-// eslint-disable-next-line unicorn/no-null,@typescript-eslint/no-explicit-any
-const vcont = ref<any>(null)
 const calcFetchTimes = () => {
-  const cnth = vcont.value?.clientHeight
+  const vcont = document.querySelector('._vcont')
+  const cnth = vcont?.clientHeight
   const doch = document.documentElement.clientHeight
-  return cnth ? Math.ceil(doch / cnth) : 1
+  return cnth ? Math.floor(doch / cnth) : 1
 }
 
 const initData = async (refresh?: boolean) => {

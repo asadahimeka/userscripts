@@ -1,7 +1,7 @@
 import { search } from 'booru'
 
-export async function searchBooru(domain: string, page: number, tags: string) {
-  return search(domain, tags, { page, limit: 20 })
+export async function searchBooru(domain: string, page: number, tags = '') {
+  return search(domain, tags, { page, limit: 40 })
 }
 
 export function isURL(s: string) {
