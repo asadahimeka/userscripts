@@ -7,28 +7,31 @@
   >
     <v-img
       v-if="store.showImageSelected"
-      :src="imageSelected.sampleUrl ?? void 0"
+      :src="imageSelected.sampleUrl ?? imageSelected.fileUrl ?? void 0"
       :lazy-src="imageSelected.previewUrl ?? void 0"
       @click="showImageToolbar = !showImageToolbar;"
     >
-      <v-toolbar
-        v-show="showImageToolbar"
-        color="transparent"
-        height="auto"
-        flat
-      >
+      <v-toolbar v-show="showImageToolbar" color="transparent" height="auto" flat>
         <v-chip
           small
-          class="mr-1"
           color="#ee8888b3"
           text-color="#ffffff"
           @click.stop="toDetailPage"
-          v-text="imageSelected.id+' '+imageSelected.rating.toUpperCase()"
+          v-text="imageSelected.id + ' ' + imageSelected.rating.toUpperCase()"
         />
         <v-spacer />
         <v-tooltip v-if="!notYKSite" bottom>
           <template #activator="{ on, attrs }">
-            <v-btn icon color="#ee8888" v-bind="attrs" v-on="on" @click.stop="addFavorite">
+            <v-btn
+              fab
+              dark
+              small
+              color="#ee8888b3"
+              v-bind="attrs"
+              class="mr-1"
+              v-on="on"
+              @click.stop="addFavorite"
+            >
               <v-icon>mdi-heart-plus-outline</v-icon>
             </v-btn>
           </template>
@@ -36,7 +39,16 @@
         </v-tooltip>
         <v-tooltip bottom>
           <template #activator="{ on, attrs }">
-            <v-btn icon color="#ee8888" v-bind="attrs" v-on="on" @click.stop="toDetailPage">
+            <v-btn
+              fab
+              dark
+              small
+              color="#ee8888b3"
+              v-bind="attrs"
+              class="mr-1"
+              v-on="on"
+              @click.stop="toDetailPage"
+            >
               <v-icon>mdi-link-variant</v-icon>
             </v-btn>
           </template>
@@ -44,7 +56,16 @@
         </v-tooltip>
         <v-tooltip v-if="imageSelected.sourceUrl" bottom>
           <template #activator="{ on, attrs }">
-            <v-btn icon color="#ee8888" v-bind="attrs" v-on="on" @click.stop="toSourcePage">
+            <v-btn
+              fab
+              dark
+              small
+              color="#ee8888b3"
+              v-bind="attrs"
+              class="mr-1"
+              v-on="on"
+              @click.stop="toSourcePage"
+            >
               <v-icon>mdi-launch</v-icon>
             </v-btn>
           </template>
@@ -52,7 +73,7 @@
         </v-tooltip>
         <v-menu dense open-on-hover offset-y>
           <template #activator="{ on, attrs }">
-            <v-btn icon color="#ee8888" v-bind="attrs" v-on="on">
+            <v-btn fab dark small color="#ee8888b3" class="mr-1" v-bind="attrs" v-on="on">
               <v-icon>mdi-download</v-icon>
             </v-btn>
           </template>
@@ -79,7 +100,7 @@
         </v-menu>
         <v-tooltip bottom>
           <template #activator="{ on, attrs }">
-            <v-btn icon color="#ee8888" v-bind="attrs" v-on="on" @click.stop="close">
+            <v-btn fab dark small color="#ee8888b3" v-bind="attrs" v-on="on" @click.stop="close">
               <v-icon>mdi-close</v-icon>
             </v-btn>
           </template>
@@ -162,7 +183,7 @@ const toSourcePage = () => {
   window.open(sourceUrl, '_blank', 'noreferrer')
 }
 
-const download = (url: string, name: string) => {
+const download = (url: string | null, name: string) => {
   downloadFile(url, name)
 }
 

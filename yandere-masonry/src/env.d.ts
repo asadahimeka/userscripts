@@ -32,6 +32,7 @@ declare module 'vue-masonry-css' {
  *   src: 'https://example.com/script.js',
  *   type: 'text/javascript'
  * });
+ * ```
  *
  * Note: this feature is experimental and the API may change.
  */

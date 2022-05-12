@@ -20,7 +20,7 @@ import { useVuetify } from './plugins/vuetify'
 
 const vuetify = useVuetify()
 const changeTheme = () => {
-  const mode = localStorage.getItem('__darkmode')
+  const mode = localStorage.getItem('__darkmode') ?? 'dark'
   vuetify.theme.dark = mode === 'dark'
 }
 

@@ -13,13 +13,36 @@
       <v-list-item>
         <v-list-item-content>
           <v-list-item-title class="title">
+            Site List
+          </v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+      <v-list-item v-for="link in siteLinks" :key="link" :href="`https://${link}?_wf=1`">
+        <v-list-item-content>
+          <v-list-item-title>{{ link.toUpperCase() }}</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+    </v-list>
+    <v-list dense nav>
+      <v-list-item>
+        <v-list-item-content>
+          <v-list-item-title class="title">
             About
           </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
-      <v-list-item link @click="openLink">
+      <v-list-item link @click="openLink('https://github.com/asadahimeka/userscripts/tree/master/yandere-masonry')">
         <v-list-item-icon class="mr-2">
           <v-icon>mdi-github</v-icon>
+        </v-list-item-icon>
+        <v-list-item-content>
+          <v-list-item-title>Github</v-list-item-title>
+          <v-list-item-subtitle>yandere-masonry</v-list-item-subtitle>
+        </v-list-item-content>
+      </v-list-item>
+      <v-list-item link @click="openLink('https://github.com/coderzhaoziwei/yande-re-chinese-patch')">
+        <v-list-item-icon class="mr-2">
+          <v-icon>mdi-source-fork</v-icon>
         </v-list-item-icon>
         <v-list-item-content>
           <v-list-item-title>Fork from</v-list-item-title>
@@ -31,9 +54,13 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from '@vue/composition-api'
 import store from '@/common/store'
+import { siteDomains } from '@/common/site-list'
 
-const openLink = () => {
-  window.open('https://github.com/coderzhaoziwei/yande-re-chinese-patch', '_blank', 'noreferrer')
+const siteLinks = ref(siteDomains)
+
+const openLink = (link: string) => {
+  window.open(link, '_blank', 'noreferrer')
 }
 </script>

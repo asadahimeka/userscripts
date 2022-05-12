@@ -1,4 +1,7 @@
 const { defineTmHeader } = require('vite-plugin-tm-userscript')
+const { sites } = require('booru')
+
+const blackList = new Set(['e621.net', 'e926.net', 'hypnohub.net', 'derpibooru.org'])
 
 module.exports = defineTmHeader({
   "name": "Yande.re Masonry",
@@ -6,18 +9,10 @@ module.exports = defineTmHeader({
   "version": "0.0.1",
   "author": "asadahimeka",
   "description": "Yande.re/Konachan Waterfall Layout. Fork form yande-re-chinese-patch.",
+  "description:zh": "Yande.re/Konachan 大图预览 & 瀑布流浏览模式",
   "homepage": "https://github.com/asadahimeka/userscripts/tree/master/yandere-masonry",
-  "source": "https://github.com/coderzhaoziwei/yande-re-chinese-patch",
+  "source": "https://github.com/asadahimeka/userscripts/tree/master/yandere-masonry",
   "license": "MIT",
-  "match": [
-    "https://yande.re/post*",
-    "https://konachan.com/post*",
-    "https://konachan.net/post*",
-    "https://danbooru.donmai.us/posts*",
-    "https://gelbooru.com/index.php*",
-  ],
+  "match": Object.keys(sites).filter(e => !blackList.has(e)).map(e => `https://${e}/*`),
   "supportURL": "https://github.com/asadahimeka/userscripts/issues",
-  "grant": [
-    "GM_addStyle",
-  ],
 })

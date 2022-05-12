@@ -4,7 +4,7 @@ async function main() {
   const distFilePath = './dist/yandere-masonry.user.js'
   const buf = await fs.readFile(distFilePath)
   const script = buf.toString()
-  const start = script.indexOf('var ykStyle')
+  const start = script.indexOf('var ydStyle')
   const end = script.indexOf('/*! prepare end */')
   const prepareStr = script.slice(start, end)
   await fs.writeFile(

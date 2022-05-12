@@ -4,7 +4,7 @@
       <v-card v-for="(image, index) in store.imageList" :key="index" class="mb-2">
         <v-img
           transition="scroll-y-transition"
-          :src="image.previewUrl ?? void 0"
+          :src="image.previewUrl ?? image.fileUrl ??void 0"
           :aspect-ratio="image.aspectRatio"
           @click="showImgModal(index)"
           @click.middle="openDetail(image)"

@@ -1,28 +1,35 @@
-import ykStyle from '@/styles/style.css?inline'
+import ydStyle from '@/styles/style.css?inline'
 import knStyle from '@/styles/konachan.css?inline'
 import loadingStyle from '@/styles/loading.css?inline'
 
-export function prepareApp(callback?: () => void) {
+export async function prepareApp(callback?: () => void) {
   addSiteStyle()
-  bindDbclick()
-  GM_registerMenuCommand('瀑布流模式', async () => {
-    replaceHead()
-    replaceBody()
-    await loadDeps()
+  bindDblclick()
+  const init = async () => {
+    await initMasonry()
     callback?.()
-  })
+  }
+  addMasonryButton(init)
+  const params = new URLSearchParams(location.search)
+  params.get('_wf') && init()
+}
+
+async function initMasonry() {
+  replaceHead()
+  replaceBody()
+  if (import.meta.env.PROD) await loadDeps()
 }
 
 function addSiteStyle() {
   if (location.href.includes('yande.re')) {
-    GM_addStyle(ykStyle)
+    GM_addStyle(ydStyle)
   }
   if (location.href.includes('konachan')) {
-    GM_addStyle(ykStyle + knStyle)
+    GM_addStyle(ydStyle + knStyle)
   }
 }
 
-function bindDbclick() {
+function bindDblclick() {
   if (['yande.re', 'konachan'].some(e => location.href.includes(e))) {
     document.addEventListener('dblclick', e => {
       const prev = document.querySelector('a.previous_page') as HTMLAnchorElement
@@ -32,6 +39,12 @@ function bindDbclick() {
       clickX > w / 2 ? next?.click() : prev?.click()
     })
   }
+}
+
+function addMasonryButton(fn: () => void) {
+  document.body.insertAdjacentHTML('beforeend', '<button id="enter-masonry" style="position:fixed;right:16px;top:10px">瀑布流模式</button>')
+  const btn = document.querySelector('#enter-masonry') as HTMLButtonElement
+  btn?.addEventListener('click', () => { fn() })
 }
 
 const cspSites = ['gelbooru']
