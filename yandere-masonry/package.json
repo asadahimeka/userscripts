@@ -1,7 +1,7 @@
 {
   "name": "yandere-masonry",
-  "version": "0.0.1",
-  "description": "Fork form yande-re-chinese-patch",
+  "version": "0.0.2",
+  "description": "Yande.re/Konachan Waterfall Layout.",
   "author": "asadahimeka",
   "license": "MIT",
   "main": "dist/yandere-masonry.user.js",

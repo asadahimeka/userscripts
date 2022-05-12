@@ -1,8 +1,9 @@
 // ==UserScript==
-// @name                 Yande.re Masonry
-// @version              0.0.1
-// @description          Yande.re/Konachan Waterfall Layout. Fork form yande-re-chinese-patch.
-// @description:zh       Yande.re/Konachan 大图预览 & 瀑布流浏览模式
+// @name                 Yande.re 瀑布流浏览
+// @name:en              Yande.re Masonry
+// @version              0.0.2
+// @description          Yande.re/Konachan 大图预览 & 双击翻页 & 瀑布流浏览模式
+// @description:en       Yande.re/Konachan Waterfall Layout. Fork form yande-re-chinese-patch.
 // @author               asadahimeka
 // @namespace            me.asadahimeka.yanderemasonry
 // @license              MIT
