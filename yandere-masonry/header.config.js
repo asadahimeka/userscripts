@@ -9,7 +9,7 @@ module.exports = defineTmHeader({
   "namespace": "me.asadahimeka.yanderemasonry",
   "version": "0.0.2",
   "author": "asadahimeka",
-  "description": "Yande.re/Konachan 大图预览 & 双击翻页 & 瀑布流浏览模式",
+  "description": "Yande.re/Konachan 缩略图放大 & 双击翻页 & 瀑布流浏览模式",
   "description:en": "Yande.re/Konachan Waterfall Layout. Fork form yande-re-chinese-patch.",
   "homepage": "https://github.com/asadahimeka/userscripts/tree/master/yandere-masonry",
   "source": "https://github.com/asadahimeka/userscripts/tree/master/yandere-masonry",
