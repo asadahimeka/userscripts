@@ -1,0 +1,9 @@
+a[href="https://yahoo.jp/v4qcw7I"],
+#mhHeadLine,
+#mhPointArea {
+  display: none !important;
+}
+
+#TEMPLA_MH_VDOM {
+  min-height: unset !important;
+}

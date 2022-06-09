@@ -1,0 +1,9 @@
+{
+  "name": "ymail-clean",
+  "version": "0.0.1",
+  "license": "MIT",
+  "scripts": {
+    "dev": "../node_modules/.bin/vite",
+    "build": "../node_modules/.bin/vite build"
+  }
+}

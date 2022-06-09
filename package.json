@@ -7,6 +7,8 @@
   "devDependencies": {
     "@types/tampermonkey": "^4.0.5",
     "eslint": "^8.13.0",
-    "eslint-plugin-unicorn": "^42.0.0"
+    "eslint-plugin-unicorn": "^42.0.0",
+    "vite": "2.9.5",
+    "vite-plugin-tm-userscript": "^1.1.3"
   }
 }
