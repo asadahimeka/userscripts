@@ -9,8 +9,8 @@
 
 |  | 脚本名称 | 脚本功能 | 🔩 |
 | :----: | :---- | :---- | :----: |
-| [<img src="https://s.yimg.jp/images/mail/icon/favicon.ico" height="16px" />](https://mail.yahoo.co.jp/) | [Ymail Clean](packages/ymail-clean) | Yahoo! Japan メール 界面样式修改 | **[安装](https://fastly.jsdelivr.net/gh/asadahimeka/userscripts@master/ymail-clean/dist/ymail-clean.user.js)** |=
 | [<img src="https://yande.re/favicon.ico" height="16px" />](https://yande.re/) | [Yande.re Masonry](https://github.com/asadahimeka/yandere-masonry) | Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览 | **[安装](https://greasyfork.org/scripts/444885)** |
+| [<img src="https://s.yimg.jp/images/mail/icon/favicon.ico" height="16px" />](https://mail.yahoo.co.jp/) | [Ymail Clean](packages/ymail-clean) | Yahoo! Japan メール 界面样式修改 | **[安装](https://fastly.jsdelivr.net/gh/asadahimeka/userscripts@master/packages/ymail-clean/dist/ymail-clean.user.js)** |=
 
 ## 如何安装/使用脚本
 
