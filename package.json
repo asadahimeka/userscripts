@@ -1,14 +1,17 @@
 {
   "name": "userscripts",
   "version": "0.0.1",
-  "description": "My common userscripts.",
+  "description": "Personal Tampermonkey userscripts.",
+  "private": true,
   "author": "asadahimeka",
   "license": "MIT",
   "devDependencies": {
-    "@types/tampermonkey": "^4.0.5",
-    "eslint": "^8.13.0",
-    "eslint-plugin-unicorn": "^42.0.0",
-    "vite": "2.9.5",
-    "vite-plugin-tm-userscript": "^1.1.3"
+    "@antfu/eslint-config-ts": "0.25.2",
+    "@types/tampermonkey": "4.0.5",
+    "bumpp": "8.2.1",
+    "eslint": "8.21.0",
+    "typescript": "4.7.4",
+    "vite": "3.0.4",
+    "vite-plugin-tm-userscript": "1.2.0"
   }
 }

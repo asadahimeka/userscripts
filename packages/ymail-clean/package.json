@@ -1,0 +1,13 @@
+{
+  "name": "ymail-clean",
+  "version": "0.0.1",
+  "license": "MIT",
+  "scripts": {
+    "dev": "vite --port 3000",
+    "build": "vite build",
+    "release": "bumpp -x \"pn build\" -c \"release ymail-clean@%s\" -t \"ymail-clean@%s\" -p"
+  },
+  "dependencies": {
+    "@types/arrive": "2.4.1"
+  }
+}

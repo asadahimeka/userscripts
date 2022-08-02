@@ -5,23 +5,20 @@
     "es6": true,
     "greasemonkey": true
   },
-  "parserOptions": {
-    "ecmaVersion": 2021
-  },
-  "plugins": ["unicorn"],
-  "extends": [
-    "eslint:recommended",
-    "plugin:unicorn/recommended"
-  ],
+  "extends": ["eslint:recommended", "@antfu/ts"],
   "rules": {
-    "quotes": ["warn", "single"],
-    "semi": ["warn", "always"],
+    "@typescript-eslint/brace-style": ["error", "1tbs", {"allowSingleLine": true}],
+    "antfu/if-newline": "off",
+    "arrow-parens": ["error", "as-needed"],
+    "brace-style": ["error", "1tbs", {"allowSingleLine": true}],
+    "curly": ["warn", "multi-line"],
+    "eqeqeq": "off",
     "no-console": "off",
     "no-unexpected-multiline": "error",
-    "no-unused-vars": "warn",
     "no-unused-expressions": "off",
-    "unicorn/prevent-abbreviations": "off",
-    "unicorn/prefer-dom-node-append": "off",
-    "unicorn/prefer-dom-node-remove": "off"
+    "no-void": "off",
+    "quotes": ["warn", "single"],
+    "semi": ["error", "never"],
+    "space-before-function-paren": ["error", {"anonymous": "always", "named": "never", "asyncArrow": "always"}]
   }
 }
