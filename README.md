@@ -9,7 +9,7 @@
 
 |  | 脚本名称 | 脚本功能 | 🔩 |
 | :----: | :---- | :---- | :----: |
-| [<img src="https://s.yimg.jp/images/mail/icon/favicon.ico" height="16px" />](https://mail.yahoo.co.jp/) | [ymail-clean](packages/ymail-clean) | Yahoo! Japan メール 界面样式修改 | **[安装](https://fastly.jsdelivr.net/gh/asadahimeka/userscripts@master/ymail-clean/dist/ymail-clean.user.js)** |
+| [<img src="https://s.yimg.jp/images/mail/icon/favicon.ico" height="16px" />](https://mail.yahoo.co.jp/) | [Ymail Clean](packages/ymail-clean) | Yahoo! Japan メール 界面样式修改 | **[安装](https://fastly.jsdelivr.net/gh/asadahimeka/userscripts@master/ymail-clean/dist/ymail-clean.user.js)** |
 
 ## 如何安装/使用脚本
 

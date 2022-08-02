@@ -1,10 +1,15 @@
 import './style.css'
 
+function setParentStyle(selector: string, callback?: (style: CSSStyleDeclaration) => void) {
+  const style = document.querySelector(selector)?.parentElement?.style
+  style && callback?.(style)
+}
+
 function setBasicStyle() {
-  const style1 = document.querySelector('#switchTab')?.parentElement?.style
-  if (style1) style1.width = '255px'
-  const style2 = document.querySelector('#tagYadsListTop')?.parentElement?.style
-  if (style2) style2.display = 'none'
+  setParentStyle('#switchTab', s => s.width = '255px')
+  setParentStyle('#tagYadsListTop', s => s.display = 'none')
+  setParentStyle('#tagYadsSideColumn', s => s.display = 'none')
+  setParentStyle('#tagYadsDetail', s => s.display = 'none')
 }
 
 function setTwimgStyle(el: HTMLIFrameElement) {
