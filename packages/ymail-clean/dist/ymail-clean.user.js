@@ -1,14 +1,14 @@
 // ==UserScript==
 // @name              Ymail Clean
-// @version           0.0.1
+// @version           0.1.2
 // @description       Y!メール 界面清理
 // @author            asadahimeka
 // @namespace         https://kanata.ml
 // @license           MIT
+// @match             https://mail.yahoo.co.jp/u/pc*
 // @require           https://lib.baomitu.com/arrive/2.4.1/arrive.min.js
 // @source            https://github.com/asadahimeka/userscripts
 // @supportURL        https://github.com/asadahimeka/userscripts/issues
-// @match             https://mail.yahoo.co.jp/u/pc*
 // @run-at            document-start
 // @grant             GM_addStyle
 // ==/UserScript==
@@ -18,7 +18,8 @@
   GM_addStyle(`
 a[href="https://yahoo.jp/v4qcw7I"],
 #mhHeadLine,
-#mhPointArea {
+#mhPointDetailTxtPaypay,
+#mhd_text_pc {
   display: none !important;
 }
 
@@ -27,24 +28,42 @@ a[href="https://yahoo.jp/v4qcw7I"],
 }
   `);
 
-  addEventListener("load", () => {
-    document.arrive('div[data-cy="mailPreviewArea"]', function() {
-      document.querySelector("#switchTab").parentElement.style.width = "255px";
-      document.querySelector("#tagYadsListTop").parentElement.style.display = "none";
-      this.arrive("iframe", function() {
-        setTimeout(() => {
-          var _a;
-          const d = this.contentWindow.document;
-          const avatar = d.querySelector('img[src^="https://pbs.twimg.com/profile_images"');
-          if (!avatar)
-            return;
-          const tds = d.querySelectorAll('td[background^="https://pbs.twimg.com/media"]');
-          for (const item of tds) {
-            (_a = item.querySelector("img")) == null ? void 0 : _a.setAttribute("src", item.getAttribute("background").replace(":mosaic", ""));
-          }
-        }, 200);
-      });
-      document.unbindArrive('div[data-cy="mailPreviewArea"]');
+  function setParentStyle(selector, callback) {
+    var _a, _b;
+    const style2 = (_b = (_a = document.querySelector(selector)) == null ? void 0 : _a.parentElement) == null ? void 0 : _b.style;
+    style2 && (callback == null ? void 0 : callback(style2));
+  }
+  function setBasicStyle() {
+    setParentStyle("#switchTab", (s) => s.width = "255px");
+    setParentStyle("#tagYadsListTop", (s) => s.display = "none");
+    setParentStyle("#tagYadsSideColumn", (s) => s.display = "none");
+    setParentStyle("#tagYadsDetail", (s) => s.display = "none");
+  }
+  function setTwimgStyle(el) {
+    setTimeout(() => {
+      var _a, _b, _c;
+      const d = (_a = el.contentWindow) == null ? void 0 : _a.document;
+      if (!d)
+        return;
+      const avatar = d.querySelector('img[src^="https://pbs.twimg.com/profile_images"');
+      if (!avatar)
+        return;
+      const tds = d.querySelectorAll('td[background^="https://pbs.twimg.com/media"]');
+      for (const item of tds) {
+        const bg = (_b = item.getAttribute("background")) == null ? void 0 : _b.replace(":mosaic", "");
+        bg && ((_c = item.querySelector("img")) == null ? void 0 : _c.setAttribute("src", bg));
+      }
+    }, 200);
+  }
+  function doClean() {
+    const selector = 'div[data-cy="mailPreviewArea"]';
+    document.arrive(selector, (el) => {
+      setBasicStyle();
+      el.arrive("iframe", (ifr) => setTwimgStyle(ifr));
+      document.unbindArrive(selector);
     });
+  }
+  addEventListener("load", () => {
+    doClean();
   });
 })();

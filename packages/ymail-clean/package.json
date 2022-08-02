@@ -1,12 +1,11 @@
 {
   "name": "ymail-clean",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "license": "MIT",
   "scripts": {
     "dev": "vite --port 3000",
     "build": "vite build",
-    "build:add": "pn build && git add .",
-    "release": "bumpp -x \"pn build:add\" -c \"release ymail-clean@%s\" -t \"ymail-clean@%s\" -p"
+    "release": "pn build && bumpp package.json dist/*.js -c \"release ymail-clean v%s\" -t \"ymail-clean@%s\" --no-push"
   },
   "dependencies": {
     "@types/arrive": "2.4.1"
