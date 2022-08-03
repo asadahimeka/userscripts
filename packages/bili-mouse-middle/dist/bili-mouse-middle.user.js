@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name              B 站鼠标中键辅助
-// @version           0.0.1
+// @version           0.1.0
 // @description       视频结束后的推荐视频允许鼠标中键点击在新窗口打开
 // @author            asadahimeka
 // @namespace         https://www.nanoka.top
