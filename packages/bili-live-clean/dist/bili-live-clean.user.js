@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name              B 站直播间页面清理
-// @version           0.0.1
+// @version           0.1.0
 // @description       bilibili 直播间页面清理、隐藏多余内容、显示已关注 UP 主的粉丝数
 // @author            asadahimeka
 // @namespace         https://www.nanoka.top
@@ -24,6 +24,7 @@
 .medal-section,
 .flip-view,
 .m-guard-ent.gift-section.guard-ent,
+.activity-gather-entry.activity-entry.s-activity-entry,
 #brush-prompt,
 #penury-gift-msg {
   display: none !important;
