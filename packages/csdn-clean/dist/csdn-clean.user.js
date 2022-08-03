@@ -1,7 +1,7 @@
 // ==UserScript==
-// @name              CsdnClean
-// @version           0.1.0
-// @description       CSDN 文章页面界面清理
+// @name              CSDN 文章页面美化
+// @version           0.1.1
+// @description       CSDN 文章页面样式美化、隐藏多余内容
 // @author            asadahimeka
 // @namespace         https://www.nanoka.top
 // @license           MIT
