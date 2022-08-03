@@ -1,0 +1,11 @@
+{
+  "name": "jianshu-clean",
+  "version": "0.0.1",
+  "license": "MIT",
+  "scripts": {
+    "dev": "vite --port 3000",
+    "build": "vite build",
+    "release": "pn build && bumpp package.json dist/*.js -c \"release jianshu-clean v%s\" -t \"jianshu-clean@%s\" -p"
+  },
+  "dependencies": {}
+}
