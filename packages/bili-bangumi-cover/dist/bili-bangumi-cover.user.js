@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name              B 站番剧播放页面显示封面
-// @version           0.0.1
+// @version           0.1.0
 // @description       在 bilibili 番剧播放页集数选择下面显示封面，并添加全屏与弹幕开关快捷键
 // @author            asadahimeka
 // @namespace         https://www.nanoka.top
