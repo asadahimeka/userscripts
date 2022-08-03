@@ -6,10 +6,10 @@ export default defineConfig({
     Userscript({
       entry: 'main.ts',
       headers: {
-        'name': 'Baidu Clean',
+        'name': '百度搜索页面美化',
         'namespace': 'https://www.nanoka.top',
         'author': 'asadahimeka',
-        'description': '百度搜索页面样式修改、去广告、整体居中',
+        'description': '百度搜索页面样式美化、隐藏多余内容、去广告、整体居中',
         'source': 'https://github.com/asadahimeka/userscripts',
         'supportURL': 'https://github.com/asadahimeka/userscripts/issues',
         'license': 'MIT',

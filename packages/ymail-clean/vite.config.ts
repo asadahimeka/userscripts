@@ -6,10 +6,10 @@ export default defineConfig({
     Userscript({
       entry: 'main.ts',
       headers: {
-        'name': 'Ymail Clean',
+        'name': 'Y!メール 样式美化',
         'namespace': 'https://kanata.ml',
         'author': 'asadahimeka',
-        'description': 'Y!メール 界面清理',
+        'description': 'Yahoo! Japan 邮箱页面样式修改、隐藏多余内容',
         'source': 'https://github.com/asadahimeka/userscripts',
         'supportURL': 'https://github.com/asadahimeka/userscripts/issues',
         'license': 'MIT',
