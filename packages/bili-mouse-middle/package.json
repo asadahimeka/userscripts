@@ -1,0 +1,11 @@
+{
+  "name": "bili-mouse-middle",
+  "version": "0.0.1",
+  "license": "MIT",
+  "scripts": {
+    "dev": "vite --port 3000",
+    "build": "vite build",
+    "release": "pn build && bumpp package.json dist/*.js -c \"release bili-mouse-middle v%s\" -t \"bili-mouse-middle@%s\" -p"
+  },
+  "dependencies": {}
+}
