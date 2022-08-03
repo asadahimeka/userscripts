@@ -1,7 +1,7 @@
 // ==UserScript==
-// @name              JianshuClean
-// @version           0.1.0
-// @description       简书文章页面界面清理
+// @name              简书文章页面美化
+// @version           0.1.1
+// @description       简书文章页面样式美化、隐藏多余内容
 // @author            asadahimeka
 // @namespace         https://www.nanoka.top
 // @license           MIT
