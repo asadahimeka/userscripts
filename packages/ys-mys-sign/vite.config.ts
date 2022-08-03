@@ -15,7 +15,7 @@ export default defineConfig({
         license: 'MIT',
         match: 'https://bbs.mihoyo.com/ys*',
         connect: 'api-takumi.mihoyo.com',
-        require: 'https://cdn.jsdelivr.net/gh/emn178/js-md5/build/md5.min.js',
+        require: 'https://cdn.jsdelivr.net/npm/js-md5@0.7.3/build/md5.min.js',
         // 'run-at': 'document-start',
       },
     }),
