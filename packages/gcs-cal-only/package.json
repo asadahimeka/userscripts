@@ -1,0 +1,11 @@
+{
+  "name": "gcs-cal-only",
+  "version": "0.0.1",
+  "license": "MIT",
+  "scripts": {
+    "dev": "vite --port 3000",
+    "build": "vite build",
+    "release": "pn build && bumpp package.json dist/*.js -c \"release gcs-cal-only v%s\" -t \"gcs-cal-only@%s\" -p"
+  },
+  "dependencies": {}
+}
