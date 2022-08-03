@@ -1,12 +1,12 @@
 // ==UserScript==
 // @name              原神米游社签到
-// @version           0.1.0
+// @version           0.1.1
 // @description       在网页端执行米游社原神每日签到
 // @author            asadahimeka
 // @namespace         https://www.nanoka.top
 // @license           MIT
 // @match             https://bbs.mihoyo.com/ys*
-// @require           https://cdn.jsdelivr.net/gh/emn178/js-md5/build/md5.min.js
+// @require           https://cdn.jsdelivr.net/npm/js-md5@0.7.3/build/md5.min.js
 // @source            https://github.com/asadahimeka/userscripts
 // @supportURL        https://github.com/asadahimeka/userscripts/issues
 // @connect           api-takumi.mihoyo.com
