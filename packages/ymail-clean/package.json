@@ -5,9 +5,7 @@
   "scripts": {
     "dev": "vite --port 3000",
     "build": "vite build",
-    "release": "pn build && bumpp package.json dist/*.js -c \"release ymail-clean v%s\" -t \"ymail-clean@%s\" --no-push"
+    "release": "pn build && bumpp package.json dist/*.js -c \"release ymail-clean v%s\" -t \"ymail-clean@%s\" -p"
   },
-  "dependencies": {
-    "@types/arrive": "2.4.1"
-  }
+  "dependencies": {}
 }

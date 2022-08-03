@@ -1,0 +1,11 @@
+{
+  "name": "{{dashCase name}}",
+  "version": "0.0.1",
+  "license": "MIT",
+  "scripts": {
+    "dev": "vite --port 3000",
+    "build": "vite build",
+    "release": "pn build && bumpp package.json dist/*.js -c \"release {{dashCase name}} v%s\" -t \"{{dashCase name}}@%s\" -p"
+  },
+  "dependencies": {}
+}

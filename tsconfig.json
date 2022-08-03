@@ -20,10 +20,13 @@
     "types": [
       "vite/client",
       "tampermonkey",
+      "arrive"
     ],
   },
   "exclude": [
     "**/dist",
-    "**/node_modules"
+    "**/node_modules",
+    "*.mjs",
+    "*.js"
   ]
 }
