@@ -1,0 +1,11 @@
+{
+  "name": "bili-live-clean",
+  "version": "0.0.1",
+  "license": "MIT",
+  "scripts": {
+    "dev": "vite --port 3000",
+    "build": "vite build",
+    "release": "pn build && bumpp package.json dist/*.js -c \"release bili-live-clean v%s\" -t \"bili-live-clean@%s\" -p"
+  },
+  "dependencies": {}
+}

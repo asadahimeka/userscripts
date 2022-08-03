@@ -8,7 +8,7 @@
 
 ## 脚本列表
 
-|  | 脚本名称 | 脚本功能 | 🔩 |
+| <div style="width:20px"></div> | <div style="width:100px">脚本名称</div> | 脚本功能 | <div style="width:40px">🔩</div> |
 | :----: | :---- | :---- | :----: |
 | [<img src="https://upload-bbs.mihoyo.com/upload/2022/08/03/190122060/3f29c2c4704369dbcc2f9bdec25ca1e0_6916582392028648563.jpg" height="16px" />](https://yande.re/) | [Yande.re 瀑布流浏览](https://github.com/asadahimeka/yandere-masonry) | Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览 | **[安装](https://greasyfork.org/scripts/444885)** |
 | [<img src="https://s.yimg.jp/images/mail/icon/favicon.ico" height="16px" />](https://mail.yahoo.co.jp/) | [Y!メール 样式美化](packages/ymail-clean) | Yahoo! Japan 邮箱页面样式修改、隐藏多余内容 | **[安装](https://fastly.jsdelivr.net/gh/asadahimeka/userscripts@master/packages/ymail-clean/dist/ymail-clean.user.js)** |
@@ -16,7 +16,8 @@
 | [<img src="https://g.csdnimg.cn/static/logo/favicon32.ico" height="16px" />](https://blog.csdn.net/) | [CSDN 文章页面美化](packages/csdn-clean) | CSDN 文章页面样式美化、隐藏多余内容 | **[安装](https://fastly.jsdelivr.net/gh/asadahimeka/userscripts@master/packages/csdn-clean/dist/csdn-clean.user.js)** |
 | [<img src="https://www.baidu.com/favicon.ico" height="16px" />](https://www.baidu.com/) | [百度搜索页面美化](packages/baidu-clean) | 百度搜索页面样式美化、隐藏多余内容、去广告、整体居中 | **[安装](https://fastly.jsdelivr.net/gh/asadahimeka/userscripts@master/packages/baidu-clean/dist/baidu-clean.user.js)** |
 | [<img src="https://static.hdslb.com/images/favicon.ico" height="16px" />](https://www.bilibili.com/) | [B 站番剧播放页面显示封面](packages/bili-bangumi-cover) | 在 bilibili 番剧播放页集数选择下面显示封面，并添加全屏与弹幕开关快捷键 | **[安装](https://fastly.jsdelivr.net/gh/asadahimeka/userscripts@master/packages/bili-bangumi-cover/dist/bili-bangumi-cover.user.js)** |
-|<!-- add new userscript row here -->||||
+| [<img src="https://static.hdslb.com/images/favicon.ico" height="16px" />](https://live.bilibili.com/) | [B 站直播间页面清理](packages/bili-live-clean) | bilibili 直播间页面清理、隐藏多余内容、显示已关注 UP 主的粉丝数 | **[安装](https://fastly.jsdelivr.net/gh/asadahimeka/userscripts@master/packages/bili-live-clean/dist/bili-live-clean.user.js)** |
+<!-- add new userscript row here -->
 
 ## 如何安装/使用脚本
 
