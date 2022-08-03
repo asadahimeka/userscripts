@@ -1,0 +1,11 @@
+{
+  "name": "baidu-clean",
+  "version": "0.0.1",
+  "license": "MIT",
+  "scripts": {
+    "dev": "vite --port 3000",
+    "build": "vite build",
+    "release": "pn build && bumpp package.json dist/*.js -c \"release baidu-clean v%s\" -t \"baidu-clean@%s\" -p"
+  },
+  "dependencies": {}
+}

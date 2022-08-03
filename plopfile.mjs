@@ -4,7 +4,7 @@ export default function (/** @type {import('plop').NodePlopAPI} */plop) {
     prompts: [{
       type: 'input',
       name: 'name',
-      message: '用户脚本的名字: ',
+      message: 'Name: ',
     }],
     actions: ({ name }) => {
       return [
