@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name              原神观测枢日历放大
-// @version           0.0.1
+// @version           0.1.0
 // @description       原神观测枢素材活动日历放大到整屏（1920*1080）
 // @author            asadahimeka
 // @namespace         https://www.nanoka.top
@@ -35,11 +35,10 @@
       if (w)
         el.style.width = `${w * 2.6041666666666665}px`;
     }
-    const a = document.querySelector(".home-channel--calendar .home-channel__title a");
-    a == null ? void 0 : a.addEventListener("click", (e) => {
-      e.preventDefault();
-      location.assign("https://bbs.mihoyo.com/ys/obc/");
-    });
+    const right = document.querySelector(".home-channel--calendar .home-channel__title .home-channel__right");
+    if (!right)
+      return;
+    right.innerHTML = '<a href="https://bbs.mihoyo.com/ys/obc/" class="channel-more">\u66F4\u591A<span>\u5185\u5BB9</span></a>';
   }
   addEventListener("load", run);
 })();
