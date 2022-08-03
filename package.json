@@ -11,6 +11,7 @@
   "devDependencies": {
     "@antfu/eslint-config-ts": "0.25.2",
     "@types/arrive": "2.4.1",
+    "@types/jquery": "3.5.14",
     "@types/tampermonkey": "4.0.5",
     "bumpp": "8.2.1",
     "eslint": "8.21.0",

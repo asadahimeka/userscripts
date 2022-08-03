@@ -20,7 +20,8 @@
     "types": [
       "vite/client",
       "tampermonkey",
-      "arrive"
+      "arrive",
+      "jquery"
     ],
   },
   "exclude": [

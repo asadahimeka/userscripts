@@ -1,0 +1,11 @@
+{
+  "name": "csdn-clean",
+  "version": "0.0.1",
+  "license": "MIT",
+  "scripts": {
+    "dev": "vite --port 3000",
+    "build": "vite build",
+    "release": "pn build && bumpp package.json dist/*.js -c \"release csdn-clean v%s\" -t \"csdn-clean@%s\" -p"
+  },
+  "dependencies": {}
+}

@@ -13,6 +13,7 @@
 | [<img src="https://yande.re/favicon.ico" height="16px" />](https://yande.re/) | [Yande.re Masonry](https://github.com/asadahimeka/yandere-masonry) | Yande.re/Konachan 中文标签 & 缩略图放大 & 双击翻页 & 瀑布流浏览 | **[安装](https://greasyfork.org/scripts/444885)** |
 | [<img src="https://s.yimg.jp/images/mail/icon/favicon.ico" height="16px" />](https://mail.yahoo.co.jp/) | [Ymail Clean](packages/ymail-clean) | Yahoo! Japan メール 界面样式修改 | **[安装](https://fastly.jsdelivr.net/gh/asadahimeka/userscripts@master/packages/ymail-clean/dist/ymail-clean.user.js)** |
 | [<img src="https://upload-bbs.mihoyo.com/upload/2022/08/03/260511332/716b7fb0aaec97296955d67b2926a6ea_6805884541472347852.jpg" height="16px" />](https://www.jianshu.com/) | [JianshuClean](packages/jianshu-clean) | 简书文章页面界面清理 | **[安装](https://fastly.jsdelivr.net/gh/asadahimeka/userscripts@master/packages/jianshu-clean/dist/jianshu-clean.user.js)** |
+| [<img src="https://g.csdnimg.cn/static/logo/favicon32.ico" height="16px" />](https://blog.csdn.net/) | [CsdnClean](packages/csdn-clean) | CSDN 文章页面界面清理 | **[安装](https://fastly.jsdelivr.net/gh/asadahimeka/userscripts@master/packages/csdn-clean/dist/csdn-clean.user.js)** |
 <!-- add new userscript row here -->
 
 ## 如何安装/使用脚本

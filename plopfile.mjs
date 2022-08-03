@@ -15,6 +15,11 @@ export default function (/** @type {import('plop').NodePlopAPI} */plop) {
           data: { name },
         },
         {
+          type: 'add',
+          path: 'packages/{{name}}/dist/{{name}}.user.js',
+          template: '',
+        },
+        {
           type: 'modify',
           path: 'README.md',
           pattern: '<!-- add new userscript row here -->',
