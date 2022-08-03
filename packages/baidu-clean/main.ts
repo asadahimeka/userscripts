@@ -1,7 +1,7 @@
 /*! Modified from: https://greasyfork.org/zh-CN/scripts/406336 */
 /*! Copyright © Tsing */
 
-import style from './style.less?inline'
+import style from './style.css?inline'
 
 function kill_baidu_ad() {
   $(document).ajaxSuccess(() => {
