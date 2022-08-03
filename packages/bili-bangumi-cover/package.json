@@ -1,0 +1,11 @@
+{
+  "name": "bili-bangumi-cover",
+  "version": "0.0.1",
+  "license": "MIT",
+  "scripts": {
+    "dev": "vite --port 3000",
+    "build": "vite build",
+    "release": "pn build && bumpp package.json dist/*.js -c \"release bili-bangumi-cover v%s\" -t \"bili-bangumi-cover@%s\" -p"
+  },
+  "dependencies": {}
+}
