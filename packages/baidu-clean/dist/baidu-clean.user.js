@@ -1,7 +1,7 @@
 // ==UserScript==
-// @name              Baidu Clean
-// @version           0.1.1
-// @description       百度搜索页面样式修改、去广告、整体居中
+// @name              百度搜索页面美化
+// @version           0.1.2
+// @description       百度搜索页面样式美化、隐藏多余内容、去广告、整体居中
 // @author            asadahimeka
 // @namespace         https://www.nanoka.top
 // @license           MIT
