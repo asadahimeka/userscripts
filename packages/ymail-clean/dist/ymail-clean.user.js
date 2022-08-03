@@ -1,7 +1,7 @@
 // ==UserScript==
-// @name              Ymail Clean
-// @version           0.1.2
-// @description       Y!メール 界面清理
+// @name              Y!メール 样式美化
+// @version           0.1.3
+// @description       Yahoo! Japan 邮箱页面样式修改、隐藏多余内容
 // @author            asadahimeka
 // @namespace         https://kanata.ml
 // @license           MIT
