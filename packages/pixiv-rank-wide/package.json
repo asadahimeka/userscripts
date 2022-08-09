@@ -1,0 +1,11 @@
+{
+  "name": "pixiv-rank-wide",
+  "version": "0.0.1",
+  "license": "MIT",
+  "scripts": {
+    "dev": "vite --port 3000",
+    "build": "vite build",
+    "release": "pn build && bumpp package.json dist/*.js -c \"release pixiv-rank-wide v%s\" -t \"pixiv-rank-wide@%s\" -p"
+  },
+  "dependencies": {}
+}

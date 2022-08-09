@@ -20,6 +20,7 @@
 | [<img src="https://bbs.mihoyo.com/favicon.ico" height="16px" />](https://bbs.mihoyo.com/ys/obc/?bbs_presentation_style=no_header&cal=1) | [原神观测枢日历放大](packages/gcs-cal-only) | 原神观测枢素材活动日历放大到整屏（1920*1080） | **[安装](https://fastly.jsdelivr.net/gh/asadahimeka/userscripts@master/packages/gcs-cal-only/dist/gcs-cal-only.user.js)** |
 | [<img src="https://static.hdslb.com/images/favicon.ico" height="16px" />](https://www.bilibili.com/) | [B 站鼠标中键辅助](packages/bili-mouse-middle) | 视频结束后的推荐视频允许鼠标中键点击在新窗口打开 | **[安装](https://fastly.jsdelivr.net/gh/asadahimeka/userscripts@master/packages/bili-mouse-middle/dist/bili-mouse-middle.user.js)** |
 | [<img src="https://bbs.mihoyo.com/favicon.ico" height="16px" />](https://bbs.mihoyo.com/ys) | [原神米游社签到](packages/ys-mys-sign) | 在网页端执行米游社原神每日签到 | **[安装](https://fastly.jsdelivr.net/gh/asadahimeka/userscripts@master/packages/ys-mys-sign/dist/ys-mys-sign.user.js)** |
+| [<img src="https://www.pixiv.net/favicon.ico" height="16px" />](https://www.pixiv.net/ranking.php) | [Pixiv 排行榜宽屏展示](packages/pixiv-rank-wide) | Pixiv 排行榜页面图片列表加宽，图片紧凑展示 | **[安装](https://fastly.jsdelivr.net/gh/asadahimeka/userscripts@master/packages/pixiv-rank-wide/dist/pixiv-rank-wide.user.js)** |
 <!-- add new userscript row here -->
 
 ## 如何安装/使用脚本
