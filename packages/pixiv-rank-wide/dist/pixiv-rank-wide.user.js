@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name              Pixiv 排行榜宽屏展示
-// @version           0.0.1
+// @version           0.1.0
 // @description       Pixiv 排行榜页面图片列表加宽，图片紧凑展示
 // @author            asadahimeka
 // @namespace         https://www.nanoka.top
