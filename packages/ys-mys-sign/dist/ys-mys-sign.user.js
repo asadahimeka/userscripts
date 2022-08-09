@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name              原神米游社签到
-// @version           0.1.1
+// @version           0.1.2
 // @description       在网页端执行米游社原神每日签到
 // @author            asadahimeka
 // @namespace         https://www.nanoka.top
@@ -22,16 +22,16 @@
    * Copyright © 苏芣苡 (https://space.bilibili.com/52159566)
    * License MIT
    */
-  const APP_VERSION = "2.33.1";
-  const CLIENT_TYPE = "4";
+  const APP_VERSION = "2.3.0";
+  const CLIENT_TYPE = "5";
   const USER_AGENT = `Mozilla/5.0 (iPhone; CPU iPhone OS 14_0_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) miHoYoBBS/${APP_VERSION}`;
   const REFERER = "https://webstatic.mihoyo.com/bbs/event/signin-ys/index.html?bbs_auth_required=true&act_id=e202009291139501&utm_source=bbs&utm_medium=mys&utm_campaign=icon";
   const HOST = "api-takumi.mihoyo.com";
   const GET_ROLE_URL = "https://api-takumi.mihoyo.com/binding/api/getUserGameRolesByCookie?game_biz=hk4e_cn";
   const SIGN_URL = "https://api-takumi.mihoyo.com/event/bbs_sign_reward/sign";
-  const DEVICE_ID = "7ab3bc70b846186b9da1e816e6c6f08d";
+  const DEVICE_ID = "bd7f912e-908c-3692-a520-e70206823495";
   function getDS() {
-    const s = "1OUn34iIy84ypu9cpXyun2VaQ2zuFeLm";
+    const s = "h8w582wxwgqvahcdkpvdhbh2w9casgfl";
     const t = Math.floor(Date.now() / 1e3);
     const r = Math.random().toString(36).slice(-6);
     const c = `salt=${s}&t=${t}&r=${r}`;
@@ -44,6 +44,8 @@
       "Referer": REFERER,
       "Host": HOST,
       "DS": getDS(),
+      "x-rpc-channel": "appstore",
+      "x-requested-with": "com.mihoyo.hyperion",
       "x-rpc-app_version": APP_VERSION,
       "x-rpc-client_type": CLIENT_TYPE,
       "x-rpc-device_id": DEVICE_ID,
