@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name              Y!メール 样式美化
-// @version           0.1.3
+// @version           0.1.4
 // @description       Yahoo! Japan 邮箱页面样式修改、隐藏多余内容
 // @author            asadahimeka
 // @namespace         https://kanata.ml
@@ -23,7 +23,7 @@ a[href="https://yahoo.jp/v4qcw7I"],
   display: none !important;
 }
 
-#TEMPLA_MH_VDOM {
+#root #TEMPLA_MH_VDOM {
   min-height: unset !important;
 }
   `);

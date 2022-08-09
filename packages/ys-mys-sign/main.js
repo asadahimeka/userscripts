@@ -79,7 +79,7 @@ async function pushNotice(content) {
 
 async function runCommand() {
   try {
-    if (!document.cookie.includes('cookie_token=')) {
+    if (!document.cookie.includes('cookie_token=') && !localStorage.MYS_COOKIE) {
       // eslint-disable-next-line no-alert
       localStorage.MYS_COOKIE = prompt('输入米游社 Cookie')
     }
@@ -89,6 +89,7 @@ async function runCommand() {
       await pushNotice(tips)
     }
   } catch (error) {
+    localStorage.MYS_COOKIE = null
     await pushNotice(`签到失败：${error.message}`)
   }
 }

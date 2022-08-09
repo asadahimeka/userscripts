@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name              原神米游社签到
-// @version           0.1.1
+// @version           0.1.3
 // @description       在网页端执行米游社原神每日签到
 // @author            asadahimeka
 // @namespace         https://www.nanoka.top
@@ -91,7 +91,7 @@
   }
   async function runCommand() {
     try {
-      if (!document.cookie.includes("cookie_token=")) {
+      if (!document.cookie.includes("cookie_token=") && !localStorage.MYS_COOKIE) {
         localStorage.MYS_COOKIE = prompt("\u8F93\u5165\u7C73\u6E38\u793E Cookie");
       }
       const list = await getUserGameRolesByCookie();
@@ -100,6 +100,7 @@
         await pushNotice(tips);
       }
     } catch (error) {
+      localStorage.MYS_COOKIE = null;
       await pushNotice(`\u7B7E\u5230\u5931\u8D25\uFF1A${error.message}`);
     }
   }

@@ -5,6 +5,6 @@ a[href="https://yahoo.jp/v4qcw7I"],
   display: none !important;
 }
 
-#TEMPLA_MH_VDOM {
+#root #TEMPLA_MH_VDOM {
   min-height: unset !important;
 }
