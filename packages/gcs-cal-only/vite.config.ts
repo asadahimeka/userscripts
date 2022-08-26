@@ -15,7 +15,7 @@ export default defineConfig({
         'license': 'MIT',
         'match': 'https://bbs.mihoyo.com/ys/obc/?bbs_presentation_style=no_header&cal=1',
         // 'require': 'https://lib.baomitu.com/arrive/2.4.1/arrive.min.js',
-        'run-at': 'document-start',
+        'run-at': 'document-end',
       },
     }),
   ],
