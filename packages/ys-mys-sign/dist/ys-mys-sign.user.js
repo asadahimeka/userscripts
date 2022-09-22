@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name              原神米游社签到
-// @version           0.1.3
+// @version           0.1.4
 // @description       在网页端执行米游社原神每日签到
 // @author            asadahimeka
 // @namespace         https://www.nanoka.top
@@ -100,7 +100,7 @@
         await pushNotice(tips);
       }
     } catch (error) {
-      localStorage.MYS_COOKIE = null;
+      localStorage.removeItem("MYS_COOKIE");
       await pushNotice(`\u7B7E\u5230\u5931\u8D25\uFF1A${error.message}`);
     }
   }
