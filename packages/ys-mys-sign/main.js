@@ -89,7 +89,7 @@ async function runCommand() {
       await pushNotice(tips)
     }
   } catch (error) {
-    localStorage.MYS_COOKIE = null
+    localStorage.removeItem('MYS_COOKIE')
     await pushNotice(`签到失败：${error.message}`)
   }
 }
