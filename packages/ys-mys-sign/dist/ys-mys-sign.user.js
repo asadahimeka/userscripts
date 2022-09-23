@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name              原神米游社签到
-// @version           0.1.4
+// @version           0.1.5
 // @description       在网页端执行米游社原神每日签到
 // @author            asadahimeka
 // @namespace         https://www.nanoka.top
@@ -80,6 +80,8 @@
     });
     const { message } = await resp.json();
     const now = new Date().toLocaleString("zh-cn-u-hc-h23");
+    if (message !== "OK")
+      localStorage.removeItem("MYS_COOKIE");
     const tips = `${now}
 \u3010${region_name}\u3011\u2014 ${nickname}
 \u3010Lv : ${level}\u3011\u2014 ${uid}
@@ -92,7 +94,7 @@
   async function runCommand() {
     try {
       if (!document.cookie.includes("cookie_token=") && !localStorage.MYS_COOKIE) {
-        localStorage.MYS_COOKIE = prompt("\u8F93\u5165\u7C73\u6E38\u793E Cookie");
+        localStorage.MYS_COOKIE = prompt("\u8F93\u5165\u7C73\u6E38\u793E Cookie") || "";
       }
       const list = await getUserGameRolesByCookie();
       for (const item of list) {
