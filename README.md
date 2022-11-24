@@ -21,6 +21,7 @@
 | [<img src="https://static.hdslb.com/images/favicon.ico" height="16px" />](https://www.bilibili.com/) | [B 站鼠标中键辅助](packages/bili-mouse-middle) | 视频结束后的推荐视频允许鼠标中键点击在新窗口打开 | **[安装](https://fastly.jsdelivr.net/gh/asadahimeka/userscripts@master/packages/bili-mouse-middle/dist/bili-mouse-middle.user.js)** |
 | [<img src="https://bbs.mihoyo.com/favicon.ico" height="16px" />](https://bbs.mihoyo.com/ys) | [原神米游社签到(已失效)](packages/ys-mys-sign) | 在网页端执行米游社原神每日签到 | **[安装](https://fastly.jsdelivr.net/gh/asadahimeka/userscripts@master/packages/ys-mys-sign/dist/ys-mys-sign.user.js)** |
 | [<img src="https://www.pixiv.net/favicon.ico" height="16px" />](https://www.pixiv.net/ranking.php) | [Pixiv 排行榜宽屏展示](packages/pixiv-rank-wide) | Pixiv 排行榜页面图片列表加宽，图片紧凑展示 | **[安装](https://fastly.jsdelivr.net/gh/asadahimeka/userscripts@master/packages/pixiv-rank-wide/dist/pixiv-rank-wide.user.js)** |
+| [<img src="https://assets.vercel.com/image/upload/front/favicon/vercel/57x57.png" height="16px" />](https://vercel.com/) | [Delete Vercel Deployments](packages/delete-vercel-deploys) | 删除 Vercel 项目里多余的 Deployments | **[安装](https://fastly.jsdelivr.net/gh/asadahimeka/userscripts@master/packages/delete-vercel-deploys/dist/delete-vercel-deploys.user.js)** |
 <!-- add new userscript row here -->
 
 ## 如何安装/使用脚本
