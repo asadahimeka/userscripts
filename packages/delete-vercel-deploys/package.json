@@ -1,0 +1,11 @@
+{
+  "name": "delete-vercel-deploys",
+  "version": "0.1.0",
+  "license": "MIT",
+  "scripts": {
+    "dev": "vite --port 3000",
+    "build": "vite build",
+    "release": "pn build && bumpp package.json dist/*.js -c \"release delete-vercel-deploys v%s\" -t \"delete-vercel-deploys@%s\" -p"
+  },
+  "dependencies": {}
+}

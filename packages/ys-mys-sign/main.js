@@ -68,6 +68,7 @@ async function sign({ region, game_uid: uid, region_name, nickname, level }) {
   })
   const { message } = await resp.json()
   const now = new Date().toLocaleString('zh-cn-u-hc-h23')
+  if (message !== 'OK') localStorage.removeItem('MYS_COOKIE')
   const tips = `${now}\n【${region_name}】— ${nickname}\n【Lv : ${level}】— ${uid}\n签到结果：${message}`
   return tips
 }
@@ -81,7 +82,7 @@ async function runCommand() {
   try {
     if (!document.cookie.includes('cookie_token=') && !localStorage.MYS_COOKIE) {
       // eslint-disable-next-line no-alert
-      localStorage.MYS_COOKIE = prompt('输入米游社 Cookie')
+      localStorage.MYS_COOKIE = prompt('输入米游社 Cookie') || ''
     }
     const list = await getUserGameRolesByCookie()
     for (const item of list) {
@@ -89,7 +90,7 @@ async function runCommand() {
       await pushNotice(tips)
     }
   } catch (error) {
-    localStorage.MYS_COOKIE = null
+    localStorage.removeItem('MYS_COOKIE')
     await pushNotice(`签到失败：${error.message}`)
   }
 }
