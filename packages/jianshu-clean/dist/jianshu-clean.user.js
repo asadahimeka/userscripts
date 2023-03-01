@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name              简书文章页面美化
-// @version           0.1.1
+// @version           0.1.2
 // @description       简书文章页面样式美化、隐藏多余内容
 // @author            asadahimeka
 // @namespace         https://www.nanoka.top
@@ -9,7 +9,7 @@
 // @require           https://lib.baomitu.com/arrive/2.4.1/arrive.min.js
 // @source            https://github.com/asadahimeka/userscripts
 // @supportURL        https://github.com/asadahimeka/userscripts/issues
-// @run-at            document-start
+// @run-at            document-body
 // @grant             GM_addStyle
 // ==/UserScript==
 
@@ -41,8 +41,13 @@ textarea[placeholder="写下你的评论..."] + div,
 [aria-label="抽奖关闭"],
 ._3Pnjry,
 ._13lIbp,
+.adad_container,
+._11TSfs,
 aside {
-  display: none;
+  display: none !important;
+}
+.ouvJEz:has(._11TSfs) {
+  padding: 0;
 }
 [role="main"] > div {
   width: 100%;
@@ -73,4 +78,11 @@ pre[class*=language-].line-numbers {
     }
   });
   waitArriveTest("div[role=button]", (el) => el.innerText.includes("\u62BD\u5956"), (el) => el.remove());
+  waitArrive("h3", (el) => {
+    var _a;
+    if (el.innerText.includes("\u63A8\u8350\u9605\u8BFB")) {
+      el.style.display = "none";
+      (_a = el.nextElementSibling) == null ? void 0 : _a.setAttribute("style", "display:none");
+    }
+  });
 })();
