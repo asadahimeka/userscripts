@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "vite --port 3000",
     "build": "vite build",
-    "release": "pn build && bumpp package.json dist/*.js -c \"release jianshu-clean v%s\" -t \"jianshu-clean@%s\" -p"
+    "release": "pn build && bumpp package.json dist/*.js -c \"release jianshu-clean v%s\" -t \"jianshu-clean@%s\" -p --all",
+    "prerelease": "git add ."
   },
   "dependencies": {}
 }

@@ -15,7 +15,7 @@ export default defineConfig({
         'license': 'MIT',
         'match': 'https://www.jianshu.com/p/*',
         'require': 'https://lib.baomitu.com/arrive/2.4.1/arrive.min.js',
-        'run-at': 'document-start',
+        'run-at': 'document-body',
       },
     }),
   ],

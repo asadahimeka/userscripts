@@ -23,3 +23,9 @@ waitArrive('button[type="button"]', el => {
   }
 })
 waitArriveTest('div[role=button]', el => el.innerText.includes('抽奖'), el => el.remove())
+waitArrive('h3', el => {
+  if (el.innerText.includes('推荐阅读')) {
+    el.style.display = 'none'
+    el.nextElementSibling?.setAttribute('style', 'display:none')
+  }
+})
