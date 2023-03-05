@@ -15,8 +15,8 @@ export default defineConfig({
         'license': 'MIT',
         'match': [
           'https://fanyi.youdao.com/index.html*',
-          'https://pixiv.pics*',
-          'https://pixiv.kanata.ml*',
+          'https://pixiv.pics/*',
+          'https://pixiv.kanata.ml/*',
         ],
         'require': 'https://lib.baomitu.com/arrive/2.4.1/arrive.min.js',
         'connect': 'hibi2.cocomi.cf',
