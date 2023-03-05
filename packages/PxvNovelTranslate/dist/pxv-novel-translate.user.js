@@ -1,12 +1,12 @@
 // ==UserScript==
 // @name             PxvNovelTranslate
-// @version          0.0.1
+// @version          0.0.2
 // @author           asadahimeka
 // @namespace        https://www.nanoka.top
 // @license          MIT
 // @match            https://fanyi.youdao.com/index.html*
-// @match            https://pixiv.pics*
-// @match            https://pixiv.kanata.ml*
+// @match            https://pixiv.pics/*
+// @match            https://pixiv.kanata.ml/*
 // @require          https://lib.baomitu.com/arrive/2.4.1/arrive.min.js
 // @source           https://github.com/asadahimeka/userscripts
 // @supportURL       https://github.com/asadahimeka/userscripts/issues
