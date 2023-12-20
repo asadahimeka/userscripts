@@ -46,7 +46,7 @@
       return;
     for (const it of arr) {
       const h = it.innerHTML;
-      if (h.includes("(Current)"))
+      if (h.includes("Current"))
         continue;
       const id = (_a = h.match(/<a.*href=".*\/(\w+)">.*<\/a>/)) == null ? void 0 : _a[1];
       notyf.open({ type: "info", message: `Deleting ${id}` });

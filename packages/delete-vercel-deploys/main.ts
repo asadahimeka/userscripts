@@ -34,7 +34,7 @@ GM_registerMenuCommand('Delete deploys', async () => {
   if (!arr) return
   for (const it of arr) {
     const h = it.innerHTML
-    if (h.includes('(Current)')) continue
+    if (h.includes('Current')) continue
     const id = h.match(/<a.*href=".*\/(\w+)">.*<\/a>/)?.[1]
     notyf.open({ type: 'info', message: `Deleting ${id}` })
     if (id) await deleteDeploys(id)
